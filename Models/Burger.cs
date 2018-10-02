@@ -15,6 +15,7 @@ namespace burgershack.Models
     [Required]
     public decimal Price { get; set; }
 
+    public Burger() { }
     public Burger(string name, string description, decimal price = 5.00m)
     {
       Name = name;

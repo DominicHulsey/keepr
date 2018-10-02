@@ -18,9 +18,11 @@ namespace burgershack
 {
   public class Startup
   {
+    private readonly string _connectionString = "";
     public Startup(IConfiguration configuration)
     {
       Configuration = configuration;
+      _connectionString = configuration.GetSection("DB").GetValue<string>("mySQLConnectionString");
     }
 
     public IConfiguration Configuration { get; }
@@ -36,7 +38,7 @@ namespace burgershack
 
     private IDbConnection CreateDBContext()
     {
-      var connection = new MySqlConnection("");
+      var connection = new MySqlConnection(_connectionString);
       connection.Open();
       return connection;
     }
