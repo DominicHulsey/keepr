@@ -33,6 +33,7 @@ namespace burgershack
       services.AddTransient<IDbConnection>(x => CreateDBContext());
 
       services.AddTransient<BurgersRepository>();
+      services.AddTransient<SmoothiesRepository>();
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }
 

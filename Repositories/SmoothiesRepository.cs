@@ -31,33 +31,33 @@ namespace burgershack.Repositories
     }
 
     //CREATE BURGER
-    public Smoothie Create(Smoothie burger)
+    public Smoothie Create(Smoothie smoothie)
     {
       int id = _db.ExecuteScalar<int>(@"
         INSERT INTO smoothies (name, description, price)
         VALUES (@Name, @Description, @Price);
-        SELECT LAST_INSERT_ID();", burger
+        SELECT LAST_INSERT_ID();", smoothie
       );
-      burger.Id = id;
-      return burger;
+      smoothie.Id = id;
+      return smoothie;
     }
 
-    //UPDATE BURGER
-    public Smoothie Update(Smoothie burger)
+    //UPDATE smoothie
+    public Smoothie Update(Smoothie smoothie)
     {
       _db.Execute(@"
       UPDATE smoothies SET (name, description, price) 
       VALUES (@Name, @Description, @Price)
       WHERE id = @Id
-      ", burger);
-      return burger;
+      ", smoothie);
+      return smoothie;
     }
 
-    //DELETE BURGER
-    public Smoothie Delete(Smoothie burger)
+    //DELETE smoothie
+    public Smoothie Delete(Smoothie smoothie)
     {
-      _db.Execute("DELETE FROM smoothies WHERE id = @Id", burger);
-      return burger;
+      _db.Execute("DELETE FROM smoothies WHERE id = @Id", smoothie);
+      return smoothie;
     }
 
     public int Delete(int id)

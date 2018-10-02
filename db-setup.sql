@@ -1,10 +1,10 @@
-CREATE TABLE smoothies (
-  id int NOT NULL AUTO_INCREMENT,
-  name VARCHAR(255) NOT NULL,
-  description VARCHAR(255) NOT NULL,
-  price DECIMAL(10,2) NOT NULL,
-  PRIMARY KEY(id)
-);
+-- CREATE TABLE smoothies (
+--   id int NOT NULL AUTO_INCREMENT,
+--   name VARCHAR(255) NOT NULL,
+--   description VARCHAR(255) NOT NULL,
+--   price DECIMAL(10,2) NOT NULL,
+--   PRIMARY KEY(id)
+-- );
 
 -- INSERT INTO smoothies (name, description, price) 
 -- VALUES ("The Plain Jane", "It is just ice cream", 7.99);
