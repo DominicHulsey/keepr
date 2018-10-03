@@ -30,11 +30,23 @@ namespace burgershack
     // This method gets called by the runtime. Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-      services.AddTransient<IDbConnection>(x => CreateDBContext());
+      services.AddCors(options =>
+      {
+        options.AddPolicy("CorsDevPolicy", builder =>
+            {
+              builder
+              .AllowAnyOrigin()
+              .AllowAnyMethod()
+              .AllowAnyHeader()
+              .AllowCredentials();
+            });
+      });
+      services.AddMvc();
 
+      services.AddTransient<IDbConnection>(x => CreateDBContext());
       services.AddTransient<BurgersRepository>();
       services.AddTransient<SmoothiesRepository>();
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+      // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
     }
 
     private IDbConnection CreateDBContext()
@@ -51,13 +63,15 @@ namespace burgershack
       if (env.IsDevelopment())
       {
         app.UseDeveloperExceptionPage();
+        app.UseCors("CorsDevPolicy");
       }
       else
       {
         app.UseHsts();
       }
+      app.UseDefaultFiles();
+      app.UseStaticFiles();
 
-      app.UseHttpsRedirection();
       app.UseMvc();
     }
   }
