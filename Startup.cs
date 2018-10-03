@@ -71,7 +71,6 @@ namespace burgershack
       }
       app.UseDefaultFiles();
       app.UseStaticFiles();
-
       app.UseMvc();
     }
   }
