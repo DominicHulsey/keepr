@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using burgershack.Models;
 using burgershack.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace burgershack.Controllers
@@ -22,6 +23,7 @@ namespace burgershack.Controllers
       return _repo.GetAll();
     }
 
+    [Authorize]
     [HttpPost]
     public Burger Post([FromBody] Burger burger)
     {

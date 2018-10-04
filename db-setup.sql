@@ -21,3 +21,9 @@
 
 -- DELETE FROM burgers WHERE id = 1;
 
+-- USER TABLE CREATION
+
+
+
+
+

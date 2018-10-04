@@ -1,3 +1,3 @@
 module.exports = {
-  outputDir: 'wwwroot'
+  outputDir: "C:/Users/BoiseCodeWorks/burgershack/wwwroot"
 }

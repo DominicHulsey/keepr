@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using burgershack.Models;
 using burgershack.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace burgershack.Controllers
 {
+  [Authorize]
   [Route("api/[controller]")]
   [ApiController]
   public class SmoothiesController : Controller
