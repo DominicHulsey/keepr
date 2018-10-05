@@ -11,8 +11,10 @@
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Core" Version="1.5.0" />
     <PackageReference Include="dapper" Version="1.50.5" />
+    <PackageReference Include="GlobalExceptionHandler" Version="3.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="MySqlConnector" Version="0.45.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
 </Project>

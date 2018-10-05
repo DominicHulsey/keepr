@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using keepr.Models;
 using keepr.Repositories;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Controllers
 {
+
     [Route("[controller]")]
     public class AccountController : Controller
     {
@@ -15,9 +17,9 @@ namespace keepr.Controllers
         [HttpPost("Login")]
         public async Task<User> Login([FromBody]UserLogin creds)
         {
-            if (!ModelState.IsValid) { return null; }
+            if (!ModelState.IsValid) { throw new Exception("Invalid Credentials"); }
             User user = _repo.Login(creds);
-            if (user == null) { return null; }
+            if (user == null) { throw new Exception("Invalid Credentials"); }
             user.SetClaims();
             await HttpContext.SignInAsync(user._principal);
             return user;
@@ -26,9 +28,9 @@ namespace keepr.Controllers
         [HttpPost("Register")]
         public async Task<User> Register([FromBody]UserRegistration creds)
         {
-            if (!ModelState.IsValid) { return null; }
+            if (!ModelState.IsValid) { throw new Exception("Invalid Credentials"); }
             User user = _repo.Register(creds);
-            if (user == null) { return null; }
+            if (user == null) { throw new Exception("Invalid Credentials"); }
             user.SetClaims();
             await HttpContext.SignInAsync(user._principal);
             return user;

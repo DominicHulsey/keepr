@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using GlobalExceptionHandler.WebApi;
 using keepr.Repositories;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +17,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 
 namespace keepr
 {
@@ -84,6 +88,15 @@ namespace keepr
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseExceptionHandler("/Error").WithConventions(o =>
+           {
+               o.ForException<Exception>().ReturnStatusCode(401).UsingMessageFormatter((ex, ctx, task) =>
+               {
+                   ctx.Response.ContentType = "application/json";
+                   ctx.Response.WriteAsync(ex.Message);
+                   return Task.CompletedTask;
+               });
+           });
             app.UseMvc();
         }
     }

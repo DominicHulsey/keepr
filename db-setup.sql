@@ -1,29 +1,61 @@
--- CREATE TABLE smoothies (
---   id int NOT NULL AUTO_INCREMENT,
---   name VARCHAR(255) NOT NULL,
---   description VARCHAR(255) NOT NULL,
---   price DECIMAL(10,2) NOT NULL,
---   PRIMARY KEY(id)
+-- CREATE TABLE users (
+--     id VARCHAR(255) NOT NULL,
+--     username VARCHAR(20) NOT NULL,
+--     email VARCHAR(255) NOT NULL,
+--     hash VARCHAR(255) NOT NULL,
+--     PRIMARY KEY (id),
+--     UNIQUE KEY email (email)
 -- );
 
--- INSERT INTO smoothies (name, description, price) 
--- VALUES ("The Plain Jane", "It is just ice cream", 7.99);
+-- CREATE TABLE vaults (
+--     id int NOT NULL AUTO_INCREMENT,
+--     name VARCHAR(20) NOT NULL,
+--     description VARCHAR(255) NOT NULL,
+--     userId VARCHAR(255),
+--     INDEX userId (userId),
+--     FOREIGN KEY (userId)
+--         REFERENCES users(id)
+--         ON DELETE CASCADE,  
+--     PRIMARY KEY (id)
+-- );
 
--- SELECT * FROM burgers;
+-- CREATE TABLE keeps (
+--     id int NOT NULL AUTO_INCREMENT,
+--     name VARCHAR(20) NOT NULL,
+--     description VARCHAR(255) NOT NULL,
+--     userId VARCHAR(255),
+--     INDEX userId (userId),
+--     FOREIGN KEY (userId)
+--         REFERENCES users(id)
+--         ON DELETE CASCADE,  
+--     PRIMARY KEY (id)
+-- );
 
--- ALTER TABLE burgers MODIFY COLUMN price DECIMAL(10,2);
+-- CREATE TABLE vaultkeeps (
+--     id int NOT NULL AUTO_INCREMENT,
+--     vaultId int NOT NULL,
+--     keepId int NOT NULL,
+--     userId VARCHAR(255) NOT NULL,
 
--- UPDATE burgers SET 
---   price = 7.99, 
---   name = "The Plain Jane with Cheese", 
---   description = "Burger on a bun with cheese"
---   WHERE id = 1;
+--     PRIMARY KEY (id),
+--     INDEX (vaultId, keepId),
+--     INDEX (userId),
 
--- DELETE FROM burgers WHERE id = 1;
+--     FOREIGN KEY (userId)
+--         REFERENCES users(id)
+--         ON DELETE CASCADE,
 
--- USER TABLE CREATION
+--     FOREIGN KEY (vaultId)
+--         REFERENCES vaults(id)
+--         ON DELETE CASCADE,
+
+--     FOREIGN KEY (keepId)
+--         REFERENCES keeps(id)
+--         ON DELETE CASCADE
+-- )
 
 
-
-
-
+-- -- USE THIS LINE FOR GET KEEPS BY VAULTID
+-- SELECT * FROM vaultkeeps vk
+-- INNER JOIN keeps k ON k.id = vk.keepId 
+-- WHERE (vaultId = @vaultId) 

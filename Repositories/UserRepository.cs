@@ -45,8 +45,8 @@ namespace keepr.Repositories
         public User Login(UserLogin creds)
         {
             User user = _db.Query<User>(@"
-      SELECT * FROM users WHERE email = @Email
-      ", creds).FirstOrDefault();
+                SELECT * FROM users WHERE email = @Email
+                ", creds).FirstOrDefault();
             if (user == null) { return null; }
             bool validPass = BCrypt.Net.BCrypt.Verify(creds.Password, user.Hash);
             if (!validPass) { return null; }
