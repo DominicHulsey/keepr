@@ -43,18 +43,20 @@ What this site is already pretty if you follow the mocks :wink: Make sure the fe
 
 ## Requirements
   #### Visualization: 
-	- Users can see all public keeps
+	- Visitors can see all public keeps (login not required)
 	- Anytime a `keep` is viewed or `kept in a vault` the relevant count should go up
-	- Users can manage their keeps and vaults from a dashboard
+	- Users have a dashboard to see all their keeps and vaults
+	- Users can View all the keeps in a given vault
 	- When hovering over a keep show the three buttons from the bottom overlaid on the image and make 
 		them clickable (View, Keep, Share... see below)
  #### Functionality:
 	- Users can: 
 		- Register and login 
 		- Be automatically logged on page refresh
-		- Create and manage their keeps
-		- Create vaults to store their keeps
-		- Add keeps to their individual vaults
+		- Create, Edit, and Delete Keeps
+		- Create, Edit, and Delete Vaults
+		- Add Keeps to Vaults
+		- Remove Keeps from Vaults
 
 
 ### Deployment Time
