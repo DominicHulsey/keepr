@@ -12,7 +12,7 @@ Vaults themselves are relatively simple... They only require a name and a descri
 
 For example I may really like game art and thus I would be a user who creates a vault named ***Sweet Game Art*** I will then start saving the `keeps` I like into this vault.
 
-The server you are using is a dotnet server with SqlServer and Entity Framework Identity. The user auth routes have already been created but you will be in charge of actually creating a user login/register form. 
+The server you are using is a dotnet server with MySqlServer and Dapper. The user auth routes have already been created but you will be in charge of actually creating a user login/register form. 
 
 ### Step 1 -  Where is the output?
 
