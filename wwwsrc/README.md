@@ -1,4 +1,4 @@
-# burgershack
+# wwwsrc
 
 ## Project setup
 ```
