@@ -46,15 +46,16 @@ What this site is already pretty if you follow the mocks :wink: Make sure the fe
 	- Visitors can see all public keeps (login not required)
 	- Anytime a `keep` is viewed or `kept in a vault` the relevant count should go up
 	- Users have a dashboard to see all their keeps and vaults
+	- Users can only see vaults they created
 	- Users can View all the keeps in a given vault
-	- When hovering over a keep show the three buttons from the bottom overlaid on the image and make 
-		them clickable (View, Keep, Share... see below)
+	- Keeps show the three clicable buttons (View, Keep, Share) with affect each of the counts
  #### Functionality:
 	- Users can: 
 		- Register and login 
 		- Be automatically logged on page refresh
-		- Create, Edit, and Delete Keeps
-		- Create, Edit, and Delete Vaults
+		- Create and Delete Keeps
+		- Create and Delete Vaults
+		- Only Delete things they created
 		- Add Keeps to Vaults
 		- Remove Keeps from Vaults
 
