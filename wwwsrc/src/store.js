@@ -6,13 +6,13 @@ import router from './router'
 Vue.use(Vuex)
 
 let auth = Axios.create({
-  baseURL: "//localhost:5000/account/",
+  baseURL: "http://localhost:5000/account/",
   timeout: 3000,
   withCredentials: true
 })
 
 let api = Axios.create({
-  baseURL: "//localhost:5000/api/",
+  baseURL: "http://localhost:5000/api/",
   timeout: 3000,
   withCredentials: true
 })

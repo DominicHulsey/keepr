@@ -1,11 +1,11 @@
 ﻿{
   "$schema": "http://json.schemastore.org/launchsettings.json",
   "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
+    "windowsAuthentication": false, 
+    "anonymousAuthentication": true, 
     "iisExpress": {
-      "applicationUrl": "http://localhost:32352",
-      "sslPort": 44366
+      "applicationUrl": "http://localhost:47749",
+      "sslPort": 44305
     }
   },
   "profiles": {
@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "keepr": {
+    "Keepr": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "api/values",
