@@ -58,6 +58,8 @@
 --         REFERENCES keeps(id)
 --         ON DELETE CASCADE
 -- )
+-- use domkeepr;
+-- ALTER TABLE keeps MODIFY COLUMN img VARCHAR(255);
 
 
 -- -- USE THIS LINE FOR GET KEEPS BY VAULTID

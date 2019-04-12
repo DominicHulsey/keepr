@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace keepr.Models
 {
+  [Route("api/[controller]")]
+  [ApiController]
   public class KeepsController : ControllerBase
   {
     private readonly KeepsRepository _pr;
@@ -20,7 +22,8 @@ namespace keepr.Models
       IEnumerable<Keep> allKeeps = _pr.GetAllKeeps();
       if (allKeeps == null)
       {
-        return BadRequest();
+
+        return BadRequest("yo dawg there are no keeps");
       }
       return Ok(allKeeps);
     }
