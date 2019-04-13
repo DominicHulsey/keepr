@@ -71,14 +71,18 @@ export default new Vuex.Store({
       api.post("keeps", payload)
         .then(res => {
           commit("addKeep", res.data)
-          console.log(res.data)
         })
     },
     getKeeps({ commit, dispatch }) {
       api.get("keeps/")
         .then(res => {
           commit("setKeeps", res.data)
-          console.log(res.data);
+        })
+    },
+    deleteKeep({ commit, dispatch }, payload) {
+      api.delete("keeps/" + payload)
+        .then(res => {
+          dispatch("getKeeps")
         })
     },
     // #endregion

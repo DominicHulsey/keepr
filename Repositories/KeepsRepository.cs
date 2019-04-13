@@ -22,7 +22,7 @@ namespace keepr.Repositories
 
     internal Keep GetById(int Id)
     {
-      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM players WHERE id = @Id", new { Id });
+      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id = @Id", new { Id });
     }
 
     public Keep CreateKeep(Keep keep)
