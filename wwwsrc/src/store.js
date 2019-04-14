@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import Axios from 'axios'
 import router from './router'
+import { stat } from 'fs';
 
 Vue.use(Vuex)
 
@@ -22,7 +23,9 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    keeps: []
+    keeps: [],
+    vaults: [],
+    vaultkeeps: []
   },
   mutations: {
     setUser(state, user) {
@@ -31,8 +34,20 @@ export default new Vuex.Store({
     addKeep(state, keep) {
       state.keeps.push(keep);
     },
+    addVault(state, vault) {
+      state.vaults.push(vault);
+    },
     setKeeps(state, keeps) {
       state.keeps = keeps;
+    },
+    setVaults(state, vaults) {
+      state.vaults = vaults;
+    },
+    setVaultKeeps(state, vaultkeeps) {
+      state.vaultkeeps = vaultkeeps;
+    },
+    addToVault(state, vaultkeep) {
+      state.vaultkeeps.push(vaultkeep)
     }
   },
   actions: {
@@ -73,10 +88,30 @@ export default new Vuex.Store({
           commit("addKeep", res.data)
         })
     },
+    makeVault({ commit, dispatch }, payload) {
+      api.post("vaults", payload)
+        .then(res => {
+          console.log(res.data)
+          commit("addVault", res.data)
+        })
+    },
     getKeeps({ commit, dispatch }) {
       api.get("keeps/")
         .then(res => {
           commit("setKeeps", res.data)
+        })
+    },
+    getVaults({ commit, dispatch }) {
+      api.get("vaults/")
+        .then(res => {
+          commit("setVaults", res.data)
+        })
+    },
+    getVaultKeeps({ commit, dispatch }, payload) {
+      api.get("vaultkeeps/" + payload, payload)
+        .then(res => {
+          console.log(res.data)
+          commit("setVaultKeeps", res.data)
         })
     },
     deleteKeep({ commit, dispatch }, payload) {
@@ -85,6 +120,19 @@ export default new Vuex.Store({
           dispatch("getKeeps")
         })
     },
+    deleteVault({ commit, dispatch }, payload) {
+      api.delete("vaults/" + payload)
+        .then(res => {
+          dispatch("getVaults")
+        })
+    },
+    addToVault({ commit, dispatch }, payload) {
+      api.post("vaultkeeps/" + payload.vaultId, payload)
+        .then(res => {
+          console.log(res.data)
+          commit("addToVault", res.data)
+        })
+    }
     // #endregion
 
   }

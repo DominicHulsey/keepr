@@ -25,6 +25,16 @@ namespace keepr.Repositories
       return _db.QueryFirstOrDefault<Vault>("SELECT * FROM vaults WHERE id = @Id", new { Id });
     }
 
+    public VaultKeeps AddToVault(VaultKeeps toAdd)
+    {
+      int Id = _db.ExecuteScalar<int>(@"INSERT INTO vaultkeeps (vaultId, keepId, userId)
+      VALUES (@vaultId, @keepId, @userId);
+      SELECT LAST_INSERT_ID();
+      ", toAdd);
+      toAdd.id = Id;
+      return toAdd;
+    }
+
     public Vault CreateVault(Vault vault)
     {
       try

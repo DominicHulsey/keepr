@@ -4,6 +4,7 @@ namespace keepr.Models
 {
   public class Keep
   {
+    [Required]
     public int userId { get; set; }
     public int id { get; set; }
     [Required]

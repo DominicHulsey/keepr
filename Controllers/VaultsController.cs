@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using keepr.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using keepr.Models;
 
 namespace keepr.Models
 {
@@ -37,7 +38,6 @@ namespace keepr.Models
     }
 
     [HttpPost]
-
     public ActionResult<Vault> Create([FromBody] Vault vault)
     {
       Vault newVault = _vr.CreateVault(vault);

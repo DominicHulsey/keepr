@@ -6,7 +6,7 @@
 
 <style>
   #app {
-    font-family: 'Dancing Script', cursive;
+    font-family: 'Montserrat', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;

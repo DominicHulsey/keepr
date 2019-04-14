@@ -1,7 +1,8 @@
 <template>
   <drag :transfer-data="keep"
-    :class="$mq | mq({xs: 'col-12 border shadow-sm', sm: 'col-6 border shadow-sm', md: 'col-4 border shadow-sm', lg: 'col-3 border shadow-sm'})">
-    <h1>{{keep.name}}</h1>
+    :class="$mq | mq({xxs: 'col-12 border shadow-sm',xs: 'col-6 border shadow-sm', sm: 'col-4 border shadow-sm', md: 'col-4 border shadow-sm', lg: 'col-3 border shadow-sm'})">
+    <h3 style="font-weight:bold;text-decoration: underline;">{{keep.name}}</h3
+      style="font-weight:bold;text-decoration: underline;">
     <h4>{{keep.description}}</h4>
     <img class="img-fluid sizing" :src="keep.img" />
     <div class="row justify-content-around mt-2">
