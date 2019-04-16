@@ -5,7 +5,7 @@ namespace keepr.Models
   public class Keep
   {
     [Required]
-    public int userId { get; set; }
+    public string userId { get; set; }
     public int id { get; set; }
     [Required]
     public string name { get; set; }

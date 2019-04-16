@@ -1,30 +1,29 @@
 <template>
-  <div class="vaultHome col-2 mt-4 border-left border-right d-flex flex-column sideVault">
-    <div class="d-flex justify-content-around p-2">
-      <h3>Vaults</h3>
-      <i class="fas fa-plus-square fa-2x makeVault" data-toggle="modal" data-target="#exampleModal"></i>
-    </div>
+  <vue-custom-scrollbar :settings="settings" class="scroll-area vaultHome sideVault">
     <vault-template v-for="vault in vaults" :vault="vault"></vault-template>
-  </div>
+  </vue-custom-scrollbar>
 </template>
 
 <script>
   import VaultTemplate from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultTemplate.vue"
+  import vueCustomScrollbar from 'vue-custom-scrollbar'
   export default {
     name: 'vaultHome',
     data() {
-      return {}
+      return {
+        settings: {
+          maxScrollbarLength: 300,
+        }
+      }
     },
     computed: {
       vaults() {
         return this.$store.state.vaults
       }
-
-    },
-    methods: {
     },
     components: {
-      VaultTemplate
+      VaultTemplate,
+      vueCustomScrollbar,
     }
   }
 </script>
@@ -33,11 +32,17 @@
 <style scoped>
   .sideVault {
     position: sticky !important;
-    top: 1vh;
-    height: 100vh;
+    top: 5vh;
+    height: 80vh;
   }
 
   .makeVault {
     cursor: pointer;
+  }
+
+  .scroll-area {
+    position: relative;
+    width: auto;
+    height: 75vh;
   }
 </style>

@@ -15,19 +15,13 @@ namespace keepr.Repositories
       _db = db;
     }
 
-    public IEnumerable<VaultKeeps> GetAllVaultKeeps(string Id)
+    public IEnumerable<Keep> GetVaultKeeps(int vaultId, string userId)
     {
-      if (Id != null)
-      {
-        IEnumerable<VaultKeeps> keeps;
-        keeps = _db.Query<VaultKeeps>("SELECT * FROM vaultkeeps WHERE userId = @Id");
-        return keeps;
-      }
-      else
-      {
-        return null;
-      }
+      return _db.Query<Keep>(@"SELECT * FROM vaultkeeps vk
+INNER JOIN keeps k ON k.id = vk.keepId
+WHERE(vaultId = @vaultId AND vk.userId = @userId)", new { vaultId, userId });
     }
+
     internal VaultKeeps AddToVault(VaultKeeps toAdd)
     {
       try

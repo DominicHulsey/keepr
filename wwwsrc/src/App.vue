@@ -1,8 +1,20 @@
 <template>
   <div id="app">
+    <navbar class="sticky-top"></navbar>
     <router-view />
   </div>
 </template>
+
+
+<script>
+  import Navbar from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/Navbar.vue"
+  export default {
+    name: "app",
+    components: {
+      Navbar
+    }
+  }
+</script>
 
 <style>
   #app {

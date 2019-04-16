@@ -1,35 +1,72 @@
 <template>
-  <div class="component">
-    <form @submit.prevent="makeKeep">
-      <input type="text" v-model="keepForm.name" placeholder="title" />
-      <input type="text" v-model="keepForm.description" placeholder="description" />
-      <input type="text" v-model="keepForm.img" placeholder="image URL" />
-      <button type="submit">Keep</button>
-    </form>
-
+  <div class="makeKeep">
+    <!-- Button trigger modal -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Create New Keep</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form @submit.prevent="makeKeep">
+              <div class="input-group my-4">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Title</div>
+                </div>
+                <input type="text" class="form-control" v-model="newKeep.name" placeholder="Name">
+              </div>
+              <div class="input-group my-4">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Description</div>
+                </div>
+                <input type="text" class="form-control" v-model="newKeep.description" placeholder="Description">
+              </div>
+              <div class="input-group my-4">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">Image</div>
+                </div>
+                <input type="text" class="form-control" v-model="newKeep.img" placeholder="url">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Create Keep</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 
 <script>
   export default {
-    name: '',
+    name: 'makeKeep',
     data() {
       return {
-        keepForm: {}
+        newKeep: {}
       }
     },
     computed: {},
     methods: {
       makeKeep() {
-        this.$store.dispatch("makeKeep", this.keepForm)
+        let payload = {
+          userId: this.$store.state.user.id,
+          name: this.newKeep.name,
+          description: this.newKeep.description,
+          img: this.newKeep.img
+        }
+        console.log(payload)
+        this.$store.dispatch("makeKeep", payload)
       }
-    },
-    components: {}
-  }
-</script>
-
-
+    }, components: {}
+  } </script>
 <style scoped>
 
 </style>

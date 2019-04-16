@@ -16,16 +16,17 @@ namespace keepr.Models
       _vkr = vkr;
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("{vaultId}/keeps")]
 
-    public ActionResult<IEnumerable<VaultKeeps>> Get(string id)
+    public ActionResult<IEnumerable<Keep>> Get(int vaultId)
     {
-      IEnumerable<VaultKeeps> allVaultKeeps = _vkr.GetAllVaultKeeps(id);
-      if (allVaultKeeps == null)
+      string userId = HttpContext.User.Identity.Name;
+      IEnumerable<Keep> VaultKeeps = _vkr.GetVaultKeeps(vaultId, userId);
+      if (VaultKeeps == null)
       {
         return BadRequest("yo dawg there are no keeps in your vaults");
       }
-      return Ok(allVaultKeeps);
+      return Ok(VaultKeeps);
     }
 
     //Add keep to vault
