@@ -18,7 +18,9 @@
     name: 'vaultTemplate',
     props: ["vault", "keep"],
     mounted() {
-      this.$store.dispatch("getVaultKeeps", this.vault.id)
+      if (this.$store.state.keeps.length > 0) {
+        this.$store.dispatch("getVaultKeeps", this.vault.id)
+      }
     },
     data() {
       return {
@@ -26,9 +28,9 @@
     },
     computed: {
       keeps() {
-        return this.$store.state.vaultkeeps.filter(k => k.vaultId == this.vault.id).map(v => {
-          return this.$store.state.keeps.find(keep => keep.id == v.keepId)
-        })
+        if (this.$store.state.vaultkeeps.find(keep => keep.vaultId == this.vault.id)) {
+          return this.$store.state.vaultkeeps.find(keep => keep.vaultId == this.vault.id).keeps
+        }
       }
     },
     methods: {

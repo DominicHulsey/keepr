@@ -1,23 +1,25 @@
 <template>
   <!-- <div :class="$mq | mq({xxs: 'col-12 p-0',xs: 'col-12 p-0', sm: 'col-12 p-1', md: 'col-6 p-1', lg: 'col-6 p-1'})"> -->
   <div>
-    <waterfall :line-gap="250" align="center" style="max-height:800px">
+    <waterfall :line-gap="250" align="center" style="max-height:100%">
       <!-- each component is wrapped by a waterfall slot -->
       <waterfall-slot v-for="(keep, index) in keeps" :transition="keep" v-if="keep.width" :width="keep.width"
-        :height="keep.height" :order="keep.id" :key="keep.id">
+        :height="keep.height" transition="keep" :order="keep.id" :key="keep.id">
         <!-- move-class="item-move"  -->
         <drag :transfer-data="keep" class="keepClass">
-          <img class="keepImage" :index="keep.id" :src="keep.img" />
+          <transition name="fade">
+            <img class="keepImage" :index="keep.id" :src="keep.img" />
+          </transition>
           <div class="overlay">
             <p class="text">{{keep.name}}</p>
             <div class="row justify-content-around">
-              <div class="bg-primary"><i class="fas fa-eye"></i>
+              <div class="bg-primary" @click="addCount(keep, 'views')"><i class="fas fa-eye"></i>
                 <p> Views</p>
               </div>
-              <div class="bg-primary"><i class="fas fa-praying-hands"></i>
+              <div class="bg-primary" @click="addCount(keep, 'keeps')"><i class="fas fa-praying-hands"></i>
                 <p> Keeps</p>
               </div>
-              <div class="bg-primary"><i class="fas fa-share"></i>
+              <div class="bg-primary" @click="addCount(keep, 'shares')"><i class="fas fa-share"></i>
                 <p> Shares</p>
               </div>
             </div>
@@ -69,6 +71,13 @@
       myListener(wassup) {
         console.log("dragging")
       },
+      addCount(keep, toAdd) {
+        let payload = {
+          keepData: keep,
+          choice: toAdd
+        }
+        this.$store.dispatch("addCount", payload)
+      }
       // ON('reflow') {
       //   reflow
       // },
@@ -136,6 +145,11 @@
     display: block;
     width: 100%;
     height: auto;
+  }
+
+  .item-move {
+    /* applied to the element when moving */
+    transition: transform .5s cubic-bezier(.55, 0, .1, 1);
   }
 
   .text {

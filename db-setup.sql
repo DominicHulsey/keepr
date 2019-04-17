@@ -1,5 +1,13 @@
 use domkeepr;
-SELECT * FROM vaultkeeps  WHERE userId = "e22f81bc-b980-4507-ac4e-ebf80fe6b87e";
+-- UPDATE keeps
+-- SET views = views + 1
+-- WHERE id = 3;
+SELECT * from keeps;
+-- SELECT * FROM vaults WHERE userId = "e22f81bc-b980-4507-ac4e-ebf80fe6b87e";
+
+-- SELECT * FROM vaults;
+-- UPDATE keeps
+-- set userId = "e22f81bc-b980-4507-ac4e-ebf80fe6b87e";
 
 -- CREATE TABLE users (
 --     id VARCHAR(255) NOT NULL,

@@ -47,7 +47,7 @@ export default new Vuex.Store({
       state.vaults = vaults;
     },
     setVaultKeeps(state, vaultkeeps) {
-      state.vaultkeeps = vaultkeeps;
+      state.vaultkeeps.push(vaultkeeps);
     },
     addToVault(state, vaultkeep) {
       state.vaultkeeps.push(vaultkeep)
@@ -112,12 +112,13 @@ export default new Vuex.Store({
     getKeeps({ commit, dispatch }) {
       api.get("keeps/")
         .then(res => {
-          // console.log(res.data)
           let toAdd = res.data.map(keep => {
             var image = new Image();
             image.src = keep.img;
             image.onload = function () {
+              // @ts-ignore
               keep.width = this.width
+              // @ts-ignore
               keep.height = this.height;
             }
             return keep
@@ -128,14 +129,18 @@ export default new Vuex.Store({
     getVaults({ commit, dispatch }) {
       api.get("vaults/")
         .then(res => {
+          console.log(res.data)
           commit("setVaults", res.data)
         })
     },
     getVaultKeeps({ commit, dispatch }, payload) {
       api.get("vaultkeeps/" + payload + '/keeps')
         .then(res => {
-          console.log(res.data)
-          // commit("setVaultKeeps", res.data)
+          let newPayload = {
+            keeps: res.data,
+            vaultId: payload
+          }
+          commit("setVaultKeeps", newPayload)
         })
     },
     deleteKeep({ commit, dispatch }, payload) {
@@ -151,6 +156,13 @@ export default new Vuex.Store({
       api.delete("vaults/" + payload)
         .then(res => {
           dispatch("getVaults")
+        })
+    },
+    addCount({ commit, dispatch }, payload) {
+      console.log(payload)
+      api.post("keeps/" + payload.keepData.id + "/" + payload.choice, payload.keepData)
+        .then(res => {
+          console.log(res.data)
         })
     },
     addToVault({ commit, dispatch }, payload) {

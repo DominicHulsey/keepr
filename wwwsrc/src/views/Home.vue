@@ -41,8 +41,6 @@
       //blocks users not logged in
       if (!this.$store.state.user.id) {
         this.$router.push({ name: "login" });
-      } else {
-        this.$store.dispatch("getVaultKeeps", this.$store.state.user.id);
       }
     },
     computed: {

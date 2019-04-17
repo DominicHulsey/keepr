@@ -17,7 +17,7 @@ namespace keepr.Repositories
 
     public IEnumerable<Keep> GetAllKeeps()
     {
-      return _db.Query<Keep>("SELECT * FROM keeps");
+      return _db.Query<Keep>("SELECT * FROM keeps WHERE isPrivate = false");
     }
 
     internal Keep GetById(int Id)
@@ -30,8 +30,8 @@ namespace keepr.Repositories
       try
       {
         int Id = _db.ExecuteScalar<int>(@"
-          INSERT INTO keeps (name, description, img)
-          VALUES (@name, @description, @img);
+          INSERT INTO keeps (name, description, img, userId)
+          VALUES (@name, @description, @img, @userId);
           SELECT LAST_INSERT_ID();
           ", keep);
         keep.id = Id;
@@ -48,6 +48,31 @@ namespace keepr.Repositories
     {
       int success = _db.Execute("DELETE FROM keeps WHERE id=@Id", new { Id });
       return success > 0;
+    }
+
+    public Keep addView(Keep keep)
+    {
+      int success = _db.Execute(@"
+UPDATE keeps
+SET views = views + 1
+WHERE id =@id;", new { keep });
+      return keep;
+    }
+    public Keep addShare(Keep keep)
+    {
+      int success = _db.Execute(@"
+UPDATE keeps
+SET shares = shares + 1
+WHERE id = @id;", new { keep });
+      return _db.QueryFirstOrDefault("SELECT * FROM keeps WHERE id = @id", new { keep });
+    }
+    public Keep addKeep(Keep keep)
+    {
+      int success = _db.Execute(@"
+UPDATE keeps
+SET keeps = keeps + 1
+WHERE id = @id;", new { keep });
+      return _db.QueryFirstOrDefault("SELECT * FROM keeps WHERE id = @id", new { keep });
     }
   }
 }

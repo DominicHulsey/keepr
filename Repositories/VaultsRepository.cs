@@ -4,6 +4,7 @@ using System.Data;
 using Dapper;
 using keepr.Models;
 using System.Collections;
+using System.Dynamic;
 
 namespace keepr.Repositories
 {
@@ -15,9 +16,10 @@ namespace keepr.Repositories
       _db = db;
     }
 
-    public IEnumerable<Vault> GetAllVaults()
+    public IEnumerable<Vault> GetAllVaults(ExpandoObject user)
     {
-      return _db.Query<Vault>("SELECT * FROM vaults");
+      IEnumerable<Vault> vaults = _db.Query<Vault>("SELECT * FROM vaults WHERE userId = @userId", user);
+      return vaults;
     }
 
     internal Vault GetById(int Id)

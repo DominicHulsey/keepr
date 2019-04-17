@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using keepr.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using keepr.Models;
+using System.Dynamic;
 
 namespace keepr.Models
 {
@@ -20,11 +21,13 @@ namespace keepr.Models
 
     public ActionResult<IEnumerable<Vault>> Get()
     {
-      IEnumerable<Vault> allVaults = _vr.GetAllVaults();
+      string id = HttpContext.User.Identity.Name;
+      dynamic user = new ExpandoObject();
+      user.userId = id;
+      IEnumerable<Vault> allVaults = _vr.GetAllVaults(user);
       if (allVaults == null)
       {
-
-        return BadRequest("yo dawg there are no vaults");
+        return BadRequest("Failed to find vaults");
       }
       return Ok(allVaults);
     }
@@ -33,7 +36,7 @@ namespace keepr.Models
     public ActionResult<Vault> Get(int id)
     {
       Vault found = _vr.GetById(id);
-      if (found == null) { return BadRequest("No vault found at that ID!"); }
+      if (found == null) { return BadRequest("No vault found"); }
       return Ok(found);
     }
 
@@ -41,7 +44,7 @@ namespace keepr.Models
     public ActionResult<Vault> Create([FromBody] Vault vault)
     {
       Vault newVault = _vr.CreateVault(vault);
-      if (newVault == null) { return BadRequest("Vault creation failed!"); }
+      if (newVault == null) { return BadRequest("Vault creation failed"); }
       return Ok(newVault);
     }
 
@@ -49,7 +52,7 @@ namespace keepr.Models
     public ActionResult<string> Delete(int id)
     {
       bool successful = _vr.Delete(id);
-      if (!successful) { return BadRequest("Delete failed!"); }
+      if (!successful) { return BadRequest("Delete failed"); }
       return Ok();
     }
   }

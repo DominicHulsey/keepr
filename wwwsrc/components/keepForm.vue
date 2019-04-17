@@ -32,6 +32,10 @@
                 </div>
                 <input type="text" class="form-control" v-model="newKeep.img" placeholder="url">
               </div>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" v-model="newKeep.isPrivate" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Private</label>
+              </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary">Create Keep</button>
@@ -57,10 +61,10 @@
     methods: {
       makeKeep() {
         let payload = {
-          userId: this.$store.state.user.id,
           name: this.newKeep.name,
           description: this.newKeep.description,
-          img: this.newKeep.img
+          img: this.newKeep.img,
+          isPrivate: this.newKeep.isPrivate || false
         }
         console.log(payload)
         this.$store.dispatch("makeKeep", payload)

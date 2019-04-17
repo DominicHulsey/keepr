@@ -8,10 +8,8 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "dragula": "^3.7.2",
     "vue": "^2.5.17",
     "vue-async-computed": "^3.6.1",
-    "vue-collage-slideshow": "^0.2.4",
     "vue-custom-scrollbar": "^1.0.0",
     "vue-drag-drop": "^1.1.4",
     "vue-mq": "^1.0.1",

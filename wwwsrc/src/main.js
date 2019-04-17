@@ -6,6 +6,8 @@ import router from './router'
 import store from './store'
 import MQ from 'vue-mq'
 import { Drag, Drop } from 'vue-drag-drop';
+
+
 // import AsyncComputed from 'vue-async-computed'
 
 Vue.config.productionTip = false
