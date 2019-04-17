@@ -1,15 +1,13 @@
 <template>
   <!-- <div :class="$mq | mq({xxs: 'col-12 p-0',xs: 'col-12 p-0', sm: 'col-12 p-1', md: 'col-6 p-1', lg: 'col-6 p-1'})"> -->
   <div>
-    <waterfall :line-gap="250" align="center" style="max-height:100%">
+    <waterfall :line-gap="250" align="center" style="max-height:100%;">
       <!-- each component is wrapped by a waterfall slot -->
       <waterfall-slot v-for="(keep, index) in keeps" :transition="keep" v-if="keep.width" :width="keep.width"
-        :height="keep.height" transition="keep" :order="keep.id" :key="keep.id">
+        :height="keep.height" transition="keep" class="anim" :order="keep.id" :key="keep.id">
         <!-- move-class="item-move"  -->
         <drag :transfer-data="keep" class="keepClass">
-          <transition name="fade">
-            <img class="keepImage" :index="keep.id" :src="keep.img" />
-          </transition>
+          <img class="keepImage" :index="keep.id" :src="keep.img" />
           <div class="overlay">
             <p class="text">{{keep.name}}</p>
             <div class="row justify-content-around">
@@ -36,7 +34,6 @@
   import { Drag, Drop } from 'vue-drag-drop';
   import Waterfall from 'vue-waterfall/lib/waterfall';
   import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot';
-  import Slideshow from 'vue-collage-slideshow';
   export default {
     name: 'keepTemplate',
     props: ["imageIndex", "keeps"],
@@ -92,7 +89,6 @@
       // }
     },
     components: {
-      Slideshow,
       Drag,
       Drop,
       Waterfall,
@@ -130,6 +126,10 @@
 
   .bg-color {
     background-color: black;
+  }
+
+  .anim {
+    transition: .5s cubic-bezier(.55, 0, .1, 1);
   }
 
   .vue-waterfall {
