@@ -10,18 +10,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            <a @click="goHome()" class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Profile</a>
+            <a @click="goDashboard()" class="nav-link" href="#">Dashboard</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Vaults</a>
-          </li>
-          <li class="nav-item">
-            <i class="fas fa-plus-square makeVault add nav-link" data-toggle="modal" data-target="#exampleModal"
-              style="font-size: 1.5em;"></i>
-          </li>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+
           <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
               aria-haspopup="true" aria-expanded="false">
@@ -34,11 +32,13 @@
               <a class="dropdown-item" href="#">Something else here</a>
             </div>
           </li> -->
+
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <span class=" p-0 justify-content-center float-right">
+          <a>Create Keep <span class="sr-only">(current)</span></a>
+          <i class="fas fa-plus-square makeVault add nav-link" data-toggle="modal" data-target="#exampleModal"
+            style="font-size: 1.5em;"></i>
+        </span>
       </div>
     </nav>
   </div>
@@ -52,7 +52,14 @@
       return {}
     },
     computed: {},
-    methods: {},
+    methods: {
+      goHome() {
+        this.$router.push({ name: "home" });
+      },
+      goDashboard() {
+        this.$router.push({ name: "dashboard" });
+      }
+    },
     components: {}
   }
 </script>

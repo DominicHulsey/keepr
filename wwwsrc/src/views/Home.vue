@@ -5,7 +5,7 @@
     <vault-form></vault-form>
     <div class="row">
       <div :class="$mq | mq({xxs: 'col-12', xs: 'col-12', sm: 'col-12', md: 'col-10', lg: 'col-10'})">
-        <keep-template :keeps="keeps"></keep-template>
+        <keep-template></keep-template>
         <!-- <div class="row justify-content-center mt-1" v-if="keeps.length > 0">
         </div> -->
       </div>
@@ -47,9 +47,6 @@
       imageIndexes() {
         return this.$store.state.indexToDraw
       },
-      keeps() {
-        return this.$store.state.keeps
-      }
     },
     components: {
       KeepForm,
@@ -63,8 +60,8 @@
       addToVault(keep) {
         console.log("nothing");
       },
-      runFunctionBro() {
-        console.log("wow")
+      remFromVault(keep) {
+        this.$store.dispatch('delete')
       }
     }
   };

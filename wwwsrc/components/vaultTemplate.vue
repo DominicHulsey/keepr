@@ -3,9 +3,7 @@
     <drop @drop="handleDrop" class="col-11 border border-dark rounded my-2">
       <p>{{vault.name}} <button class="btn btn-outline-danger btn-sm" @click="deleteVault(vault.id)">d</button></p>
       <div class="row d-flex justify-content-around">
-        <div class="m-2" v-for="keep in keeps">
-          <img class="img-fluid border border-dark" :src="keep.img" id="vaultKeep" />
-        </div>
+        <img class="img-fluid border border-dark m-1" v-for="keep in keeps" :src="keep.img" id="vaultKeep" />
       </div>
     </drop>
   </div>
@@ -28,9 +26,7 @@
     },
     computed: {
       keeps() {
-        if (this.$store.state.vaultkeeps.find(keep => keep.vaultId == this.vault.id)) {
-          return this.$store.state.vaultkeeps.find(keep => keep.vaultId == this.vault.id).keeps
-        }
+        return this.$store.state.vaultkeeps[this.vault.id]
       }
     },
     methods: {

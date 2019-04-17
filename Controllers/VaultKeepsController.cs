@@ -30,7 +30,7 @@ namespace keepr.Models
     }
 
     //Add keep to vault
-    [HttpPost("{id}")]
+    [HttpPost("{vaultId}")]
     public ActionResult<Vault> AddKeep([FromBody] VaultKeeps toAdd)
     {
       VaultKeeps newAdd = _vkr.AddToVault(toAdd);

@@ -25,7 +25,7 @@ export default new Vuex.Store({
     user: {},
     keeps: [],
     vaults: [],
-    vaultkeeps: [],
+    vaultkeeps: {},
     indexToDraw: [],
     imageArray: [],
     keepImages: []
@@ -46,11 +46,11 @@ export default new Vuex.Store({
     setVaults(state, vaults) {
       state.vaults = vaults;
     },
-    setVaultKeeps(state, vaultkeeps) {
-      state.vaultkeeps.push(vaultkeeps);
+    setVaultKeeps(state, allKeeps) {
+      state.vaultkeeps[allKeeps.vaultId] = allKeeps.keeps
     },
     addToVault(state, vaultkeep) {
-      state.vaultkeeps.push(vaultkeep)
+      state.vaultkeeps.find(vault => vault.vaultId == vaultkeep.vaultId).keeps = vaultkeep.keeps
     },
     addIndexes(state, imageArray) {
       state.indexToDraw.push(imageArray)
@@ -129,7 +129,6 @@ export default new Vuex.Store({
     getVaults({ commit, dispatch }) {
       api.get("vaults/")
         .then(res => {
-          console.log(res.data)
           commit("setVaults", res.data)
         })
     },
@@ -140,6 +139,7 @@ export default new Vuex.Store({
             keeps: res.data,
             vaultId: payload
           }
+          // console.log(newPayload)
           commit("setVaultKeeps", newPayload)
         })
     },
@@ -149,13 +149,10 @@ export default new Vuex.Store({
           dispatch("getKeeps")
         })
     },
-    runFunctionBro() {
-      console.log("wow")
-    },
     deleteVault({ commit, dispatch }, payload) {
       api.delete("vaults/" + payload)
         .then(res => {
-          dispatch("getVaults")
+          dispatch("getVaults", payload)
         })
     },
     addCount({ commit, dispatch }, payload) {
@@ -168,8 +165,14 @@ export default new Vuex.Store({
     addToVault({ commit, dispatch }, payload) {
       api.post("vaultkeeps/" + payload.vaultId, payload)
         .then(res => {
-          // console.log(res.data)
-          commit("addToVault", res.data)
+          dispatch("getVaultKeeps", payload.vaultId)
+          dispatch("getVaults")
+        })
+    },
+    remFromVault({ commit, dispatch }, payload) {
+      api.delete("vaultkeeps/" + payload.vaultId, payload)
+        .then(res => {
+          dispatch("getVaultKeeps", payload.vaultId)
         })
     },
     numToDraw({ commit, dispatch }, payload) {
@@ -195,5 +198,8 @@ export default new Vuex.Store({
     }
     // #endregion
 
+  },
+  getters: {
+    keeps: state => state.keeps,
   }
 })

@@ -55,24 +55,24 @@ namespace keepr.Repositories
       int success = _db.Execute(@"
 UPDATE keeps
 SET views = views + 1
-WHERE id =@id;", new { keep });
-      return keep;
+WHERE id = @id;", keep);
+      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id = @id", keep);
     }
     public Keep addShare(Keep keep)
     {
       int success = _db.Execute(@"
 UPDATE keeps
 SET shares = shares + 1
-WHERE id = @id;", new { keep });
-      return _db.QueryFirstOrDefault("SELECT * FROM keeps WHERE id = @id", new { keep });
+WHERE id = @id;", keep);
+      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id = @id", keep);
     }
     public Keep addKeep(Keep keep)
     {
       int success = _db.Execute(@"
 UPDATE keeps
 SET keeps = keeps + 1
-WHERE id = @id;", new { keep });
-      return _db.QueryFirstOrDefault("SELECT * FROM keeps WHERE id = @id", new { keep });
+WHERE id = @id;", keep);
+      return _db.QueryFirstOrDefault<Keep>("SELECT * FROM keeps WHERE id = @id", keep);
     }
   }
 }

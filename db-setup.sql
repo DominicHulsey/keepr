@@ -1,7 +1,7 @@
 use domkeepr;
 -- UPDATE keeps
 -- SET views = views + 1
--- WHERE id = 3;
+-- WHERE id = 12;
 SELECT * from keeps;
 -- SELECT * FROM vaults WHERE userId = "e22f81bc-b980-4507-ac4e-ebf80fe6b87e";
 

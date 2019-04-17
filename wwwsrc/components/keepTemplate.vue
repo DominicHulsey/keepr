@@ -1,23 +1,24 @@
 <template>
   <!-- <div :class="$mq | mq({xxs: 'col-12 p-0',xs: 'col-12 p-0', sm: 'col-12 p-1', md: 'col-6 p-1', lg: 'col-6 p-1'})"> -->
   <div>
-    <waterfall :line-gap="250" align="center" style="max-height:100%;">
+    <waterfall v-if="keeps.length > 0" :line-gap="400" align="center" style="max-height:100%;">
       <!-- each component is wrapped by a waterfall slot -->
       <waterfall-slot v-for="(keep, index) in keeps" :transition="keep" v-if="keep.width" :width="keep.width"
         :height="keep.height" transition="keep" class="anim" :order="keep.id" :key="keep.id">
-        <!-- move-class="item-move"  -->
-        <drag :transfer-data="keep" class="keepClass">
-          <img class="keepImage" :index="keep.id" :src="keep.img" />
+        <keep-details v-on="$listeners" :keep="keep"></keep-details>
+        <drag @click="addCount(keep, 'views');keep.views += 1" :transfer-data="keep" class="keepClass">
+          <img data-toggle="modal" :data-target="'#Modal' + keep.id" class="keepImage" :index="keep.id"
+            :src="keep.img" />
           <div class="overlay">
             <p class="text">{{keep.name}}</p>
             <div class="row justify-content-around">
-              <div class="bg-primary" @click="addCount(keep, 'views')"><i class="fas fa-eye"></i>
+              <div class="bg-primary"><i class="fas fa-eye"></i>
                 <p> Views</p>
               </div>
-              <div class="bg-primary" @click="addCount(keep, 'keeps')"><i class="fas fa-praying-hands"></i>
+              <div class="bg-primary"><i class="fas fa-praying-hands"></i>
                 <p> Keeps</p>
               </div>
-              <div class="bg-primary" @click="addCount(keep, 'shares')"><i class="fas fa-share"></i>
+              <div class="bg-primary"><i class="fas fa-share"></i>
                 <p> Shares</p>
               </div>
             </div>
@@ -34,14 +35,16 @@
   import { Drag, Drop } from 'vue-drag-drop';
   import Waterfall from 'vue-waterfall/lib/waterfall';
   import WaterfallSlot from 'vue-waterfall/lib/waterfall-slot';
+  import KeepDetails from '/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/keepDetails.vue'
   export default {
     name: 'keepTemplate',
-    props: ["imageIndex", "keeps"],
+    props: ["imageIndex"],
     mounted() {
       this.addData()
     },
     data() {
       return {
+        showDetails: false
         // images: this.$store.state.imageArray.slice(this.imageIndex[0], this.imageIndex[1])
       }
     },
@@ -57,6 +60,9 @@
         })
         return newArray
       },
+      keeps() {
+        return this.$store.getters.keeps
+      }
     },
     methods: {
       deleteKeep(id) {
@@ -69,11 +75,13 @@
         console.log("dragging")
       },
       addCount(keep, toAdd) {
+
         let payload = {
           keepData: keep,
           choice: toAdd
         }
         this.$store.dispatch("addCount", payload)
+        this.keep[toAdd] += 1;
       }
       // ON('reflow') {
       //   reflow
@@ -81,10 +89,10 @@
       // AFTER(reflow) {
       //   emit 'reflowed'
       // },
-      // WHEN(layout property changes) { /* line, line-gap, etc. */
+      // WHEN(keeps) { /* line, line-gap, etc. */
       //   reflow
       // },
-      // WHEN(slot changes) { /* add, remove, etc. */
+      // WHEN(keeps) { /* add, remove, etc. */
       //   reflow
       // }
     },
@@ -92,7 +100,8 @@
       Drag,
       Drop,
       Waterfall,
-      WaterfallSlot
+      WaterfallSlot,
+      KeepDetails
     }
   }
 </script>
