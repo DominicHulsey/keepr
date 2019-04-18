@@ -38,10 +38,11 @@ namespace keepr.Models
       return Ok(newAdd);
     }
 
-    [HttpDelete("{id}")]
-    public ActionResult<string> Delete(int id)
+    [HttpDelete("{vaultId}/deletekeep/{keepId}")]
+    public ActionResult<string> Delete(int vaultId, int keepId)
     {
-      bool successful = _vkr.Delete(id);
+      string userId = HttpContext.User.Identity.Name;
+      bool successful = _vkr.Delete(vaultId, keepId, userId);
       if (!successful) { return BadRequest("Delete failed!"); }
       return Ok();
     }

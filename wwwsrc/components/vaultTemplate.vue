@@ -16,9 +16,7 @@
     name: 'vaultTemplate',
     props: ["vault", "keep"],
     mounted() {
-      if (this.$store.state.keeps.length > 0) {
-        this.$store.dispatch("getVaultKeeps", this.vault.id)
-      }
+      this.$store.dispatch("getVaultKeeps", this.vault.id)
     },
     data() {
       return {

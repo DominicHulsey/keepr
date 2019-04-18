@@ -23,7 +23,19 @@ namespace keepr.Models
       IEnumerable<Keep> allKeeps = _pr.GetAllKeeps();
       if (allKeeps == null)
       {
-        return BadRequest("yo dawg there are no keeps");
+        return BadRequest("there are no keeps");
+      }
+      return Ok(allKeeps);
+    }
+    [HttpGet("private")]
+    //gets all public keeps
+    public ActionResult<IEnumerable<Keep>> GetPrivate()
+    {
+      string userId = HttpContext.User.Identity.Name;
+      IEnumerable<Keep> allKeeps = _pr.GetPrivateKeeps(userId);
+      if (allKeeps == null)
+      {
+        return BadRequest("Failed to get private keeps!");
       }
       return Ok(allKeeps);
     }

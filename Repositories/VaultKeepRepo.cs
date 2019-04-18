@@ -21,7 +21,6 @@ namespace keepr.Repositories
 INNER JOIN keeps k ON k.id = vk.keepId
 WHERE(vaultId = @vaultId AND vk.userId = @userId)", new { vaultId, userId });
     }
-
     internal VaultKeeps AddToVault(VaultKeeps toAdd)
     {
       try
@@ -40,9 +39,9 @@ WHERE(vaultId = @vaultId AND vk.userId = @userId)", new { vaultId, userId });
       }
     }
 
-    public bool Delete(int Id)
+    public bool Delete(int vaultId, int keepId, string userId)
     {
-      int success = _db.Execute("DELETE FROM vaultkeeps WHERE id=@Id", new { Id });
+      int success = _db.Execute(@"DELETE FROM vaultkeeps WHERE vaultId = @vaultId AND keepId = @keepId AND userId = @userId", new { vaultId, keepId, userId });
       return success > 0;
     }
   }

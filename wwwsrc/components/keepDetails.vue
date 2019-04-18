@@ -29,10 +29,11 @@
               <div class="dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Dropdown button
+                  Add to Vault
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a v-for="vault in vaults" class="dropdown-item" href="#">{{vault.name}}</a>
+                  <a v-for="vault in vaults" @click="addToVault(vault)" class="dropdown-item"
+                    href="#">{{vault.name}}</a>
                 </div>
               </div>
             </div>
@@ -59,13 +60,21 @@
     },
     methods: {
       addCount(keep, toAdd) {
-        this.keep[toAdd] += 1;
         let payload = {
           keepData: keep,
           choice: toAdd
         }
         this.$store.dispatch("addCount", payload)
-      }
+      },
+      addToVault(vault) {
+        let payload = {
+          vaultId: vault.id,
+          userId: this.$store.state.user.id,
+          keepId: this.keep.id
+        }
+        this.$store.dispatch("addToVault", payload)
+        this.addCount(this.keep, "keeps")
+      },
     },
     components: {}
   }

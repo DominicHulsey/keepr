@@ -6,9 +6,9 @@ namespace keepr.Models
   {
     public int id { get; set; }
     [Required]
-    public string vaultId { get; set; }
+    public int vaultId { get; set; }
     [Required]
-    public string keepId { get; set; }
+    public int keepId { get; set; }
     [Required]
     public string userId { get; set; }
   }

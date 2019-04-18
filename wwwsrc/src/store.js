@@ -28,6 +28,7 @@ export default new Vuex.Store({
     vaultkeeps: {},
     indexToDraw: [],
     imageArray: [],
+    private: [],
     keepImages: []
   },
   mutations: {
@@ -37,11 +38,24 @@ export default new Vuex.Store({
     addKeep(state, keep) {
       state.keeps.push(keep);
     },
+    updateKeep(state, data) {
+      state.keeps = state.keeps.map(old => {
+        if (old.id == data.keep.id) {
+          old[data.choice] = data.keep[data.choice]
+          return old
+        }
+        return old
+      })
+      console.log(state.keeps)
+    },
     addVault(state, vault) {
       state.vaults.push(vault);
     },
     setKeeps(state, keeps) {
       state.keeps = keeps;
+    },
+    setPrivate(state, keeps) {
+      state.private = keeps;
     },
     setVaults(state, vaults) {
       state.vaults = vaults;
@@ -126,6 +140,24 @@ export default new Vuex.Store({
           commit("setKeeps", toAdd)
         })
     },
+    getPrivate({ commit, dispatch }) {
+      api.get("keeps/private")
+        .then(res => {
+          let toAdd = res.data.map(keep => {
+            var image = new Image();
+            image.src = keep.img;
+            image.onload = function () {
+              // @ts-ignore
+              keep.width = this.width
+              // @ts-ignore
+              keep.height = this.height;
+            }
+            return keep
+          })
+          console.log(toAdd)
+          commit("setPrivate", toAdd)
+        })
+    },
     getVaults({ commit, dispatch }) {
       api.get("vaults/")
         .then(res => {
@@ -139,7 +171,6 @@ export default new Vuex.Store({
             keeps: res.data,
             vaultId: payload
           }
-          // console.log(newPayload)
           commit("setVaultKeeps", newPayload)
         })
     },
@@ -156,10 +187,13 @@ export default new Vuex.Store({
         })
     },
     addCount({ commit, dispatch }, payload) {
-      console.log(payload)
       api.post("keeps/" + payload.keepData.id + "/" + payload.choice, payload.keepData)
         .then(res => {
-          console.log(res.data)
+          let newPayload = {
+            keep: res.data,
+            choice: payload.choice
+          }
+          commit("updateKeep", newPayload)
         })
     },
     addToVault({ commit, dispatch }, payload) {
@@ -170,7 +204,7 @@ export default new Vuex.Store({
         })
     },
     remFromVault({ commit, dispatch }, payload) {
-      api.delete("vaultkeeps/" + payload.vaultId, payload)
+      api.delete("vaultkeeps/" + payload.vaultId + "/deletekeep/" + payload.keepId)
         .then(res => {
           dispatch("getVaultKeeps", payload.vaultId)
         })

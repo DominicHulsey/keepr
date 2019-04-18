@@ -1,14 +1,14 @@
 <template>
   <!-- <div :class="$mq | mq({xxs: 'col-12 p-0',xs: 'col-12 p-0', sm: 'col-12 p-1', md: 'col-6 p-1', lg: 'col-6 p-1'})"> -->
   <div>
-    <waterfall v-if="keeps.length > 0" :line-gap="400" align="center" style="max-height:100%;">
+    <waterfall :line-gap="400" align="center" :watch="this.keeps" style="max-height:100%;">
       <!-- each component is wrapped by a waterfall slot -->
-      <waterfall-slot v-for="(keep, index) in keeps" :transition="keep" v-if="keep.width" :width="keep.width"
-        :height="keep.height" transition="keep" class="anim" :order="keep.id" :key="keep.id">
-        <keep-details v-on="$listeners" :keep="keep"></keep-details>
-        <drag @click="addCount(keep, 'views');keep.views += 1" :transfer-data="keep" class="keepClass">
-          <img data-toggle="modal" :data-target="'#Modal' + keep.id" class="keepImage" :index="keep.id"
-            :src="keep.img" />
+      <waterfall-slot v-for="(keep, index) in keeps" move-class="item-move1" v-if="keep.width" :width="keep.width"
+        :height="keep.height" class="anim" :order="keep.id" :key="keep.id">
+        <keep-details :keep="keep"></keep-details>
+        <drag :transfer-data="keep" class="keepClass">
+          <img data-toggle="modal" @click="addCount(keep, 'views')" :data-target="'#Modal' + keep.id" class="keepImage"
+            :index="keep.id" :src="keep.img" />
           <div class="overlay">
             <p class="text">{{keep.name}}</p>
             <div class="row justify-content-around">
@@ -40,12 +40,11 @@
     name: 'keepTemplate',
     props: ["imageIndex"],
     mounted() {
-      this.addData()
+      console.log(Waterfall)
     },
     data() {
       return {
-        showDetails: false
-        // images: this.$store.state.imageArray.slice(this.imageIndex[0], this.imageIndex[1])
+        showDetails: false,
       }
     },
     computed: {
@@ -68,33 +67,16 @@
       deleteKeep(id) {
         this.$store.dispatch("deleteKeep", id)
       },
-      addData() {
-        setTimeout(this.getData, 4000)
-      },
       myListener(wassup) {
         console.log("dragging")
       },
       addCount(keep, toAdd) {
-
         let payload = {
           keepData: keep,
           choice: toAdd
         }
         this.$store.dispatch("addCount", payload)
-        this.keep[toAdd] += 1;
       }
-      // ON('reflow') {
-      //   reflow
-      // },
-      // AFTER(reflow) {
-      //   emit 'reflowed'
-      // },
-      // WHEN(keeps) { /* line, line-gap, etc. */
-      //   reflow
-      // },
-      // WHEN(keeps) { /* add, remove, etc. */
-      //   reflow
-      // }
     },
     components: {
       Drag,
@@ -127,6 +109,11 @@
     transition: all .5s cubic-bezier(.55, 0, .1, 1) !important;
   }
 
+  .item-move1 {
+    transition: ease-in
+  }
+
+
   #keepButtons:active {
     box-shadow: none;
     background-color: #007bff !important;
@@ -154,11 +141,6 @@
     display: block;
     width: 100%;
     height: auto;
-  }
-
-  .item-move {
-    /* applied to the element when moving */
-    transition: transform .5s cubic-bezier(.55, 0, .1, 1);
   }
 
   .text {
