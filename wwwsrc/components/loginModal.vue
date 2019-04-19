@@ -51,7 +51,7 @@
                     <div class="input-group-prepend">
                       <div class="input-group-text bgBlue bordR text-white">Name</div>
                     </div>
-                    <input class="form-control" type="email" v-model="newUser.name" placeholder="name">
+                    <input class="form-control" type="text" v-model="newUser.username" placeholder="name">
                   </div>
                   <div class="input-group my-4">
                     <div class="input-group-prepend">

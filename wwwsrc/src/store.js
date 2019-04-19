@@ -122,7 +122,7 @@ export default new Vuex.Store({
         .then(res => {
           console.log(res.data)
           commit("addKeep", res.data)
-          // location.reload(true)
+          location.reload(true)
         })
     },
     makeVault({ commit, dispatch }, payload) {

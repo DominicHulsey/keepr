@@ -94,7 +94,7 @@
 
   .vaultTitle {
     position: sticky !important;
-    top: 13vh;
+    top: 15vh;
     max-height: 85vh
   }
 
