@@ -28,12 +28,16 @@ export default new Vuex.Store({
     vaultkeeps: {},
     indexToDraw: [],
     imageArray: [],
-    private: [],
-    keepImages: []
+    privateKeeps: [],
+    keepImages: [],
+    loggedOut: []
   },
   mutations: {
     setUser(state, user) {
       state.user = user
+    },
+    logout(state) {
+      state.user = null
     },
     addKeep(state, keep) {
       state.keeps.push(keep);
@@ -55,13 +59,13 @@ export default new Vuex.Store({
       state.keeps = keeps;
     },
     setPrivate(state, keeps) {
-      state.private = keeps;
+      state.privateKeeps = keeps;
     },
     setVaults(state, vaults) {
       state.vaults = vaults;
     },
     setVaultKeeps(state, allKeeps) {
-      state.vaultkeeps[allKeeps.vaultId] = allKeeps.keeps
+      Vue.set(state.vaultkeeps, allKeeps.vaultId, allKeeps.keeps)
     },
     addToVault(state, vaultkeep) {
       state.vaultkeeps.find(vault => vault.vaultId == vaultkeep.vaultId).keeps = vaultkeep.keeps
@@ -69,13 +73,6 @@ export default new Vuex.Store({
     addIndexes(state, imageArray) {
       state.indexToDraw.push(imageArray)
     },
-    makeCollageImage(state, index) {
-      let newObj = {
-        image: state.keeps[index].img
-      }
-      state.imageArray.push(newObj)
-    }
-
   },
   actions: {
     register({ commit, dispatch }, newUser) {
@@ -104,16 +101,28 @@ export default new Vuex.Store({
           console.log(creds)
           commit('setUser', res.data)
           router.push({ name: 'home' })
+          location.reload(true)
         })
         .catch(e => {
           console.log('Login Failed')
+        })
+    },
+    logout({ commit, dispatch }) {
+      auth.delete('logout')
+        .then(res => {
+          commit('setUser', res.data)
+          commit('logout')
+          router.push({ name: 'home' })
+          location.reload(true)
         })
     },
     // #region keeps
     makeKeep({ commit, dispatch }, payload) {
       api.post("keeps", payload)
         .then(res => {
+          console.log(res.data)
           commit("addKeep", res.data)
+          location.reload(true)
         })
     },
     makeVault({ commit, dispatch }, payload) {
@@ -162,6 +171,9 @@ export default new Vuex.Store({
       api.get("vaults/")
         .then(res => {
           commit("setVaults", res.data)
+          res.data.forEach(vault => {
+            dispatch("getVaultKeeps", vault.id)
+          })
         })
     },
     getVaultKeeps({ commit, dispatch }, payload) {
@@ -193,15 +205,15 @@ export default new Vuex.Store({
             keep: res.data,
             choice: payload.choice
           }
-          commit("updateKeep", newPayload)
+          // commit("updateKeep", newPayload)
         })
     },
     addToVault({ commit, dispatch }, payload) {
       api.post("vaultkeeps/" + payload.vaultId, payload)
         .then(res => {
-          dispatch("getVaultKeeps", payload.vaultId)
           dispatch("getVaults")
         })
+      dispatch("getVaultKeeps", payload.vaultId)
     },
     remFromVault({ commit, dispatch }, payload) {
       api.delete("vaultkeeps/" + payload.vaultId + "/deletekeep/" + payload.keepId)

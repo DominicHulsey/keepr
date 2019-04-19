@@ -1,32 +1,38 @@
 <template>
   <!-- <div :class="$mq | mq({xxs: 'col-12 p-0',xs: 'col-12 p-0', sm: 'col-12 p-1', md: 'col-6 p-1', lg: 'col-6 p-1'})"> -->
   <div>
-    <waterfall :line-gap="400" align="center" :watch="this.keeps" style="max-height:100%;">
+    <waterfall :line-gap="300" align="center" :watch="this.keeps" style="max-height:100%;">
       <!-- each component is wrapped by a waterfall slot -->
       <waterfall-slot v-for="(keep, index) in keeps" move-class="item-move1" v-if="keep.width" :width="keep.width"
-        :height="keep.height" class="anim" :order="keep.id" :key="keep.id">
+        :height="keep.height" class="anim p-1" :order="keep.id" :key="keep.id">
         <keep-details :keep="keep"></keep-details>
         <drag :transfer-data="keep" class="keepClass">
           <img data-toggle="modal" @click="addCount(keep, 'views')" :data-target="'#Modal' + keep.id" class="keepImage"
-            :index="keep.id" :src="keep.img" />
-          <div class="overlay">
-            <p class="text">{{keep.name}}</p>
-            <div class="row justify-content-around">
-              <div class="bg-primary"><i class="fas fa-eye"></i>
-                <p> Views</p>
+            :index="keep.id" :src="keep.img">
+          <div class="overlay" data-toggle="modal" @click="addCount(keep, 'views')" :data-target="'#Modal' + keep.id"
+            :index="keep.id">
+            <div class="row">
+              <div class="col-6">
+                <div class="mt-1">
+                  <i class="fas fa-eye fa-2x"></i>
+                  <p class="text-white" style="font-weight:bolder;">{{keep.views}}</p>
+                </div>
               </div>
-              <div class="bg-primary"><i class="fas fa-praying-hands"></i>
-                <p> Keeps</p>
-              </div>
-              <div class="bg-primary"><i class="fas fa-share"></i>
-                <p> Shares</p>
+              <div class="col-6">
+                <div class="mt-1">
+                  <i class="fas fa-praying-hands fa-2x"></i>
+                  <p class="text-white" style="font-weight:bolder;"> {{keep.keeps}}</p>
+                </div>
               </div>
             </div>
+          </div>
+          <div class="overlay2" data-toggle="modal" @click="addCount(keep, 'views')" :data-target="'#Modal' + keep.id"
+            :index="keep.id">
+            <p class="text">{{keep.name}}</p>
           </div>
         </drag>
       </waterfall-slot>
     </waterfall>
-    <!-- <button class="btn btn-outline-danger mb-3" @click="deleteKeep(keep.id)">Delete</button> -->
   </div>
 </template>
 
@@ -40,11 +46,11 @@
     name: 'keepTemplate',
     props: ["imageIndex"],
     mounted() {
-      console.log(Waterfall)
     },
     data() {
       return {
         showDetails: false,
+        waterfallOrder: this.$store.state.keeps.map(keep => keep.id)
       }
     },
     computed: {
@@ -106,13 +112,12 @@
   }
 
   .item-move {
-    transition: all .5s cubic-bezier(.55, 0, .1, 1) !important;
+    transition: all 2s cubic-bezier(.55, 0, .1, 1) !important;
   }
 
   .item-move1 {
-    transition: ease-in
+    transition: ease-in 2s all
   }
-
 
   #keepButtons:active {
     box-shadow: none;
@@ -125,6 +130,7 @@
   }
 
   .anim {
+    /* box-shadow: -5px 5px 5px 0px rgba(152, 84, 187, 1) !important; */
     transition: .5s cubic-bezier(.55, 0, .1, 1);
   }
 
@@ -143,11 +149,28 @@
     height: auto;
   }
 
+  .keepImage:hover {
+    display: block;
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+  }
+
   .text {
     color: white;
-    font-size: 10px;
+    font-size: 15px;
     position: absolute;
-    top: 25%;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+
+  .text2 {
+    color: white;
+    font-size: 15px;
+    position: absolute;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
@@ -158,14 +181,32 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #008CBA;
+    background-color: #9854bb;
     overflow: hidden;
     width: 100%;
     height: 0;
     transition: .5s ease;
   }
 
+  .overlay2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(128, 128, 128, 0.441);
+    overflow: hidden;
+    width: 100%;
+    height: 0;
+    transition: .5s ease;
+  }
+
+  .keepClass:hover .overlay2 {
+    height: 65%;
+    cursor: pointer;
+  }
+
   .keepClass:hover .overlay {
     height: 35%;
+    cursor: pointer;
   }
 </style>

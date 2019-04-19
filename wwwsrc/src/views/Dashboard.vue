@@ -1,11 +1,12 @@
 <template>
   <div class="Dashboard">
+    <login-modal></login-modal>
     <div class="row mt-5 justify-content-center">
-      <div class="col-10 px-0 mt-4 border h-100" style="min-height:60vh">
-        <div class="bg-info text-white h-25 text-left pl-3">
+      <div class="col-10 px-0 mt-4 h-100" style="min-height:60vh;border:4px solid black;">
+        <div class="text-white h-25 text-left pl-3" style="background-color:#9854bb;border-bottom:4px solid black;">
           <h1>Dashboard</h1>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center m-0">
           <ul class="nav mx-5 nav-tabs justify-content-between" id="myTab" role="tablist" style="width:100%">
             <li class="nav-item dropdown" style="width:33%">
               <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
@@ -21,34 +22,66 @@
                 aria-controls="profile" aria-selected="false">Private Keeps</a>
             </li>
             <li class="nav-item" style="width:33%">
-              <a class="nav-link" id="contact-tab" data-toggle="tab" href="#allkeeps" role="tab" aria-controls="contact"
-                aria-selected="false">All Created Keeps</a>
+              <a class="nav-link active" id="contact-tab" data-toggle="tab" href="#allkeeps" role="tab"
+                aria-controls="contact" aria-selected="false">All Created Keeps</a>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade" v-for="vault in vaults" :id="'vault' + vault.id" role="tabpanel"
               aria-labelledby="vault-details">
-              <div class="row">
-                <div class="col-2 border" v-if="activeKeeps != null" v-for="keep in activeKeeps"
-                  style="max-width:200px">
-                  <h5>
+              <div class="row d-flex justify-content-center flex-row m-0">
+                <div class="col-2 m-2 w-100 card border p-0" style="border-radius:0 !important;"
+                  v-for="keep in activeKeeps">
+                  <img class="img-fluid" :src="keep.img" style="width:100%" />
+                  <p class="m-0">
                     {{keep.name}}
-                  </h5>
-                  <h5>
+                  </p>
+                  <p class="m-0">
                     {{keep.description}}
-                  </h5>
-                  <img class=" img-fluid" :src="keep.img" />
-                  <button class=" btn btn-outline-danger" @click="remKeep(keep, vault)">Remove from Vault</button>
+                  </p>
+                  <div>
+                    <button class="btn w-50 trash" @click="deleteKeep(keep)"><i
+                        class="fas fa-trash-alt fa-2x"></i></button>
+                  </div>
                 </div>
               </div>
             </div>
             <div class="tab-pane fade" id="private" role="tabpanel" aria-labelledby="profile-tab">
-              <div v-for="privateKeep in privateKeeps">{{private.name}}</div>
-              <div v-for="privateKeep in privateKeeps">{{private.isPrivate}}</div>
+              <div class="row d-flex justify-content-center flex-row m-0">
+                <div class="col-2 m-2 w-100 card border p-0" style="border-radius:0 !important;"
+                  v-for="privateKeep in privateKeeps">
+                  <img class="img-fluid" :src="privateKeep.img" style="width:100%" />
+                  <p class="m-0">
+                    {{privateKeep.name}}
+                    <!-- <button class=" btn btn-outline-danger" @click="remKeep(keep, vault)">Remove from Vault</button> -->
+                  </p>
+                  <p class="m-0">
+                    {{privateKeep.description}}
+                  </p>
+                  <div>
+                    <button class="btn w-50 trash" @click="deleteKeep(privateKeep)"><i
+                        class="fas fa-trash-alt fa-2x"></i></button>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div class="tab-pane fade" id="allkeeps" role="tabpanel" aria-labelledby="contact-tab">
-              hey
-              <div v-for="keep in userKeeps">{{keep.name}}</div>
+            <div class="tab-pane fade-in active" id="allkeeps" role="tabpanel" aria-labelledby="contact-tab">
+              <div class="row d-flex justify-content-center flex-row m-0">
+                <div class="col-2 m-2 w-100 card border p-0" style="border-radius:0 !important;"
+                  v-for="keep in userKeeps">
+                  <img class="img-fluid" :src="keep.img" style="width:100%" />
+                  <p class="m-0">
+                    {{keep.name}}
+                  </p>
+                  <p class="m-0">
+                    {{keep.description}}
+                  </p>
+                  <div>
+                    <button class="btn w-50 trash" @click="deleteKeep(keep)"><i
+                        class="fas fa-trash-alt fa-2x"></i></button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -61,6 +94,7 @@
 
 
 <script>
+  import LoginModal from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/loginModal.vue"
   export default {
     name: 'Dashboard',
     data() {
@@ -73,13 +107,11 @@
         return this.$store.state.vaults
       },
       privateKeeps() {
-        if (this.$store.state.private.length > 0) {
-          return this.$store.state.private
-        }
+        return this.$store.state.privateKeeps
       },
       userKeeps() {
         return this.$store.state.keeps.filter(keep => keep.userId == this.$store.state.user.id)
-      }
+      },
     },
     methods: {
       setActive(vault) {
@@ -97,18 +129,26 @@
         if (this.$store.state.private == [])
           debugger
         this.$store.dispatch("getPrivate")
-      }
+      },
+      deleteKeep(keep) {
+        this.$store.dispatch("deleteKeep", keep.id)
+      },
     },
-    watch: {
-      counter() {
-        console.log('The counter has changed!')
-      }
-    },
-    components: {}
+    components: {
+      LoginModal
+    }
   }
 </script>
 
 
 <style scoped>
+  .trash {
+    color: grey;
+    border: none;
+    transition: all 0.3s ease-in-out;
+  }
 
+  .trash:hover {
+    transform: scale(1.03);
+  }
 </style>

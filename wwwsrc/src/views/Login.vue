@@ -23,7 +23,6 @@
         name: "login",
         mounted() {
             //checks for valid session
-            this.$store.dispatch("authenticate");
         },
         data() {
             return {

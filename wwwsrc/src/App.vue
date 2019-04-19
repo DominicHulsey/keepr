@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="backgroundBro" id="app">
     <navbar class="sticky-top"></navbar>
     <router-view />
   </div>
@@ -32,6 +32,10 @@
   #nav a {
     font-weight: bold;
     color: #2c3e50;
+  }
+
+  .backgroundBro {
+    background-color: #f4f4f4;
   }
 
   #nav a.router-link-exact-active {

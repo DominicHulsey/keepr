@@ -2,42 +2,45 @@
   <div class="indivKeep">
     <div class="modal fade" :id="'Modal' + keep.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{keep.name}}</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <h1>hey</h1>
-            <img class="img-fluid" :src="keep.img" />
-            <div class="row justify-content-around">
-              <div class="bg-primary"><i class="fas fa-eye">{{keep.views}}</i>
-                <p> Views</p>
+      <div class="modal-dialog" role="document" style="max-width:70vw;">
+        <div class="modal-content" style="margin-top:10%;">
+          <div class="modal-body row m-0 p-0">
+            <div class="col-6">
+              <h5 class="mt-3 text-left" style="font-weight:bold;font-size:2rem">{{keep.name}}</h5>
+              <h5 class="text-left p-0">{{keep.description}}</h5>
+              <hr>
+              <div class="row justify-content-around">
+                <p class="m-0"> Views: <span style="font-weight:bolder">{{keep.views}}</span></p>
+                <p class="m-0"> Keeps: <span style="font-weight:bolder">{{keep.keeps}}</span></p>
+                <p class="m-0"> Shares: <span style="font-weight:bolder">{{keep.shares}}</span></p>
               </div>
-              <div class="bg-primary"><i class="fas fa-praying-hands">{{keep.keeps}}</i>
-                <p> Keeps</p>
+              <hr>
+              <div class="row justify-content-around mb-3" style="vertical-align: bottom;">
+                <div class="backV p-3 px-4 text-white" @click="keep.views+= 1"><i class="fas fa-eye"></i>
+                </div>
+                <div class="backK p-3 px-4 text-white" @click="keep.views+= 1"><i class="fas fa-praying-hands"
+                    @click="keep.keeps+= 1"></i>
+                </div>
+                <div class="backS p-3 px-4 text-white" @click="keep.views+= 1"><i class="fas fa-share"></i>
+                </div>
               </div>
-              <div class="bg-primary"><i class="fas fa-share">{{keep.shares}}</i>
-                <p> Shares</p>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <div class="dropdown">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton"
-                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Add to Vault
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a v-for="vault in vaults" @click="addToVault(vault)" class="dropdown-item"
-                    href="#">{{vault.name}}</a>
+              <div class=" modal-footer">
+                <button type="button" class="btn btnBGB text-white" data-dismiss="modal">Close</button>
+                <div class="dropdown">
+                  <button class="btn btnBG text-white dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Add to Vault
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a v-for="vault in vaults" @click="addToVault(vault)" class="dropdown-item"
+                      href="#">{{vault.name}}</a>
+                  </div>
                 </div>
               </div>
             </div>
-            </form>
+            <div class="col-6 p-0 align-items-center">
+              <img :src="keep.img " style="min-width:100%; height:auto; max-height:80vh;" />
+            </div>
           </div>
         </div>
       </div>
@@ -82,5 +85,29 @@
 
 
 <style scoped>
+  .backV {
+    background: #9854bb;
+  }
 
+  .backK {
+    background: #fc0095;
+  }
+
+  .modal-content {
+    border-radius: 2px;
+  }
+
+  .backS {
+    background: black;
+  }
+
+  .btnBG {
+    background-color: #9854bb;
+    border-radius: 0;
+  }
+
+  .btnBGB {
+    background-color: black;
+    border-radius: 0;
+  }
 </style>

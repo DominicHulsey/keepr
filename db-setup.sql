@@ -2,6 +2,7 @@ use domkeepr;
 -- UPDATE keeps
 -- SET views = views + 1
 -- WHERE id = 12;
+DELETE from KEEPS where isPrivate = null;
 SELECT * from keeps;
 -- SELECT * FROM vaults WHERE userId = "e22f81bc-b980-4507-ac4e-ebf80fe6b87e";
 

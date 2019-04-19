@@ -54,10 +54,8 @@ namespace keepr.Models
     [HttpPost]
     public ActionResult<Keep> Create([FromBody] Keep keep)
     {
-      string curUser = HttpContext.User.Identity.Name;
-      Keep newKeep = new Keep();
-      newKeep.userId = curUser;
-      _pr.CreateKeep(newKeep);
+      keep.userId = HttpContext.User.Identity.Name;
+      Keep newKeep = _pr.CreateKeep(keep);
       if (newKeep == null) { return BadRequest("Keep creation failed!"); }
       return Ok(newKeep);
     }

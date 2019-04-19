@@ -1,21 +1,22 @@
 <template>
   <div class="home container-fluid backgroundMain h-100">
-    <h1 class="text-white">Welcome to Keepr™</h1>
+    <h1 class="text-dark">Welcome to Keepr™</h1>
+    <login-modal></login-modal>
     <keep-form></keep-form>
     <vault-form></vault-form>
     <div class="row">
-      <div :class="$mq | mq({xxs: 'col-12', xs: 'col-12', sm: 'col-12', md: 'col-10', lg: 'col-10'})">
+      <div :class="$mq | mq({xxs: 'col-12', xs: 'col-12', sm: 'col-12', md: 'col-9 p-0', lg: 'col-9 p-0'})">
         <keep-template></keep-template>
         <!-- <div class="row justify-content-center mt-1" v-if="keeps.length > 0">
         </div> -->
       </div>
-      <div v-if="$mq == 'md' || $mq == 'lg'" class="d-flex p-2 vaultTitle col-2 mt-2 flex-column ">
-        <div v-if="$mq == 'md' || $mq == 'lg'" class="col-12 vaultTitle card bg-colored">
+      <div v-if="$mq == 'md' || $mq == 'lg'" class="d-flex p-2 bg-dark vaultTitle col-3 widthSet mt-2 flex-column">
+        <div v-if="$mq == 'md' || $mq == 'lg'" class="col-12 vaultTitle card bg-dark justify-content-center">
           <h4 class="vaultTitle mt-3">
             Vaults:
-            <i class="fas fa-plus-square makeVault add" data-toggle="modal" data-target="#exampleModal2"></i>
+            <i v-if="!this.loggedIn" class="fas fa-plus-square makeVault add" @click="login()"></i>
+            <i v-else class="fas fa-plus-square makeVault add" data-toggle="modal" data-target="#exampleModal2"></i>
           </h4>
-
           <vault-home></vault-home>
         </div>
       </div>
@@ -29,6 +30,7 @@
   import KeepForm from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/keepForm.vue";
   import VaultForm from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultForm.vue";
   import VaultHome from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultHome.vue";
+  import LoginModal from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/loginModal.vue"
   import { Drag, Drop } from "vue-drag-drop";
   export default {
     name: "home",
@@ -36,17 +38,28 @@
     async mounted() {
       await this.$store.dispatch("getKeeps");
       await this.$store.dispatch("numToDraw", this.$store.state.keeps.length);
+      await this.$store.dispatch("authenticate");
       await this.$store.dispatch("getVaults");
-      // this.addImages();
-      //blocks users not logged in
-      if (!this.$store.state.user.id) {
-        this.$router.push({ name: "login" });
+    },
+    data() {
+      return {
       }
     },
     computed: {
       imageIndexes() {
         return this.$store.state.indexToDraw
       },
+      loggedIn() {
+        return this.$store.state.user.id
+      }
+      // checkAutho() {
+      //   if (!this.$store.state.user.id) {
+      //     this.loggedIn = false;
+      //   }
+      //   else {
+      //     $('#MyModal').modal('hide');
+      //   }
+      // }
     },
     components: {
       KeepForm,
@@ -55,19 +68,33 @@
       Drag,
       Drop,
       VaultForm,
+      LoginModal
     },
     methods: {
       addToVault(keep) {
         console.log("nothing");
       },
+      login() {
+        $('#MyModal').modal('show');
+      },
+      // if (!this.$store.state.user.id) {
+      //   $('#MyModal').modal('toggle');
+      //   $('#MyModal').modal('show');
+      // else {
+      //   $('#MyModal').modal('hide');
+      // }
       remFromVault(keep) {
         this.$store.dispatch('delete')
       }
-    }
-  };
+    },
+  }
 </script>
 
 <style scoped>
+  .widthSet {
+    width: 300px;
+  }
+
   .vaultTitle {
     position: sticky !important;
     top: 10vh;
@@ -79,7 +106,7 @@
   }
 
   .bg-colored {
-    background-color: antiquewhite;
+    background-color: #9854bb;
     ;
   }
 

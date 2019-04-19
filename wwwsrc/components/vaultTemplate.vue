@@ -1,9 +1,10 @@
 <template>
   <div class="vaultTemplate">
     <drop @drop="handleDrop" class="col-11 border border-dark rounded my-2">
-      <p>{{vault.name}} <button class="btn btn-outline-danger btn-sm" @click="deleteVault(vault.id)">d</button></p>
+      <p class="mt-2">{{vault.name}}</p>
+      <hr>
       <div class="row d-flex justify-content-around">
-        <img class="img-fluid border border-dark m-1" v-for="keep in keeps" :src="keep.img" id="vaultKeep" />
+        <img class="img-fluid border border-dark mb-2" v-for="keep in keeps" :src="keep.img" id="vaultKeep" />
       </div>
     </drop>
   </div>
@@ -25,6 +26,9 @@
     computed: {
       keeps() {
         return this.$store.state.vaultkeeps[this.vault.id]
+      },
+      loggedIn() {
+        return this.$store.state.user.id
       }
     },
     methods: {
