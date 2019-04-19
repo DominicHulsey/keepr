@@ -1,7 +1,7 @@
 <template>
   <div class="Navigationbar">
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-navbar">
-      <a class="navbar-brand" href="#">Keepr™</a>
+      <img class="img-fluid" src="../src/assets/keepr.png" style="max-height:90px;" />
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

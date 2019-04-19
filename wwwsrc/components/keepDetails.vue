@@ -6,34 +6,39 @@
         <div class="modal-content" style="margin-top:10%;">
           <div class="modal-body row m-0 p-0">
             <div class="col-6">
-              <h5 class="mt-3 text-left" style="font-weight:bold;font-size:2rem">{{keep.name}}</h5>
-              <h5 class="text-left p-0">{{keep.description}}</h5>
-              <hr>
-              <div class="row justify-content-around">
-                <p class="m-0"> Views: <span style="font-weight:bolder">{{keep.views}}</span></p>
-                <p class="m-0"> Keeps: <span style="font-weight:bolder">{{keep.keeps}}</span></p>
-                <p class="m-0"> Shares: <span style="font-weight:bolder">{{keep.shares}}</span></p>
+              <div style="position:absolute; top:25%;">
+                <h5 class="mt-3 text-left" style="font-weight:bold;font-size:3rem">{{keep.name}}</h5>
+                <hr>
+                <h5 class="text-left p-0">{{keep.description}}</h5>
               </div>
               <hr>
-              <div class="row justify-content-around mb-3" style="vertical-align: bottom;">
-                <div class="backV p-3 px-4 text-white cursor" @click="keep.views+= 1"><i class="fas fa-eye"></i>
+              <div class="p-4" style="position:absolute;bottom:0%; width:100%;">
+                <div class="row justify-content-around">
+                  <p class="m-0"> Views: <span style="font-weight:bolder">{{keep.views}}</span></p>
+                  <p class="m-0"> Keeps: <span style="font-weight:bolder">{{keep.keeps}}</span></p>
+                  <p class="m-0"> Shares: <span style="font-weight:bolder">{{keep.shares}}</span></p>
                 </div>
-                <div class="backK p-3 px-4 text-white cursor" @click="keep.keeps+= 1"><i class="fas fa-praying-hands"
-                    @click="keep.keeps+= 1"></i>
+                <hr>
+                <div class="row justify-content-around mb-3" style="vertical-align: bottom;">
+                  <div class="backV p-3 px-4 text-white cursor" @click="keep.views+= 1"><i class="fas fa-eye"></i>
+                  </div>
+                  <div class="backK p-3 px-4 text-white cursor" @click="keep.keeps+= 1"><i class="fas fa-praying-hands"
+                      @click="keep.keeps+= 1"></i>
+                  </div>
+                  <div class="backS p-3 px-4 text-white cursor" @click="keep.shares+= 1"><i class="fas fa-share"></i>
+                  </div>
                 </div>
-                <div class="backS p-3 px-4 text-white cursor" @click="keep.shares+= 1"><i class="fas fa-share"></i>
-                </div>
-              </div>
-              <div class=" modal-footer">
-                <button type="button" class="btn btnBGB text-white" data-dismiss="modal">Close</button>
-                <div class="dropdown">
-                  <button class="btn btnBG text-white dropdown-toggle" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Add to Vault
-                  </button>
-                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a v-for="vault in vaults" @click="addToVault(vault)" class="dropdown-item"
-                      href="#">{{vault.name}}</a>
+                <div class=" modal-footer">
+                  <button type="button" class="btn btnBGB text-white" data-dismiss="modal">Close</button>
+                  <div class="dropdown">
+                    <button class="btn btnBG text-white dropdown-toggle" type="button" id="dropdownMenuButton"
+                      data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Add to Vault
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a v-for="vault in vaults" @click="addToVault(vault)" class="dropdown-item"
+                        href="#">{{vault.name}}</a>
+                    </div>
                   </div>
                 </div>
               </div>

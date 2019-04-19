@@ -1,10 +1,17 @@
 <template>
   <div class="vaultTemplate">
-    <drop @drop="handleDrop" class="col-11 border border-dark rounded my-2">
-      <p class="mt-2">{{vault.name}}</p>
-      <hr>
-      <div class="row d-flex justify-content-around">
-        <img class="img-fluid border border-dark mb-2" v-for="keep in keeps" :src="keep.img" id="vaultKeep" />
+    <drop v-if="this.vault.id % 2 == 0" @drop="handleDrop" class="col-12 bordR bgBlue border-dark rounded my-2">
+      <p class="m-1">{{vault.name}}</p>
+      <hr class="bg-white m-0">
+      <div class="row mt-4 d-flex justify-content-around">
+        <img class="rounded mb-2" v-for="keep in keeps" :src="keep.img" id="vaultKeep" />
+      </div>
+    </drop>
+    <drop v-else @drop="handleDrop" class="col-12 bordR bgPurp border-dark rounded my-2">
+      <p class="m-1">{{vault.name}}</p>
+      <hr class="bg-white m-0">
+      <div class="row mt-4 d-flex justify-content-around">
+        <img class="rounded mb-2" v-for="keep in keeps" :src="keep.img" id="vaultKeep" />
       </div>
     </drop>
   </div>
@@ -54,7 +61,15 @@
 
 <style scoped>
   #vaultKeep {
-    max-height: 30px;
+    max-height: 75px;
     width: auto;
+  }
+
+  .bgPurp {
+    background: #fc0095;
+  }
+
+  .bgBlue {
+    background-color: #007bff;
   }
 </style>

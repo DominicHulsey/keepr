@@ -35,10 +35,9 @@
               </div>
               <div class="form-check">
                 <!-- <input type="checkbox" class="form-check-input" v-model="newKeep.isPrivate" id="exampleCheck1"> -->
-                <label class="container col-5 w-100 ">
-                  <p style="font-size:16px;font-weight:bold;">Private post?</p>
-                  <span class="checkmark "></span>
-                  <input v-model="newKeep.isPrivate" type="checkbox" checked="checked">
+                <label class="row justify-content-center">
+                  <p class="mx-2" style="font-size:16px;font-weight:bold;">Private post? </p>
+                  <input class="mt-1" v-model="newKeep.isPrivate" type="checkbox" checked="checked">
                 </label>
                 <!-- <label class="form-check-label p-2" for="exampleCheck1">Private</label> -->
               </div>
@@ -48,6 +47,7 @@
                 <button type="submit" class="btn btn-primary text-white"
                   style="border-radius:0;background-color:black">Create
                   Keep</button>
+                <!-- @click="hideModal()" -->
               </div>
             </form>
           </div>
@@ -80,6 +80,9 @@
         }
         else payload.isPrivate = 0
         this.$store.dispatch("makeKeep", payload)
+      },
+      hideModal() {
+        $('#exampleModal').modal('hide');
       }
     }, components: {}
   } 

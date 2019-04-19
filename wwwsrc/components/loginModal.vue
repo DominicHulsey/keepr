@@ -1,57 +1,72 @@
 <template>
-  <div class="Navbar">
+  <div class="Auth">
     <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-          <div class="modal-header">
-            <div class="tabbable w-100">
-              <ul class="nav nav-tabs w-100" role="tablist">
+          <div class="modal-header p-0">
+            <div class="tabbable w-100" style="height:100%">
+              <ul class="nav nav-tabs w-100 h-100" role="tablist">
                 <li class="nav-item active w-50">
-                  <a class="nav-link active" id="#login" href="#login" data-toggle="tab">
+                  <a class="nav-link p-4 text active" style="color:white" href="#login" id="#login" data-toggle="tab">
                     Login
                   </a>
                 </li>
                 <li class="nav-item active w-50">
-                  <a class="nav-link" id="#register" href="#register" data-toggle="tab">
+                  <a class="nav-link p-4 text" style="color:white" href="#register" id="#register" data-toggle="tab">
                     Register
                   </a>
                 </li>
-                <!-- <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="">
-                    Menu
-                  </a>
-                  <ul class="dropdown-menu">
-                    <li>
-                      <a class="dropdown-item" href="#News">
-                        News
-                      </a>
-                    </li>
-                  </ul>
-                </li> -->
               </ul>
             </div>
           </div>
-          <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade text-dark active show" href="#login" id="login" role="tabpanel"
+          <div class="tab-content m-5" id="myTabContent">
+            <div class="tab-pane mt-5 fade text-dark active show" href="#login" id="login" role="tabpanel"
               aria-labelledby="profile-tab">
               <div class="login">
+                <img src="../src/assets/keepr.png" />
                 <form @submit.prevent="loginUser">
-                  <input type="email" v-model="creds.email" placeholder="email">
-                  <input type="password" v-model="creds.password" placeholder="password">
-                  <button type="submit">Login</button>
+                  <div class="input-group my-4">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text bgBlue bordR text-white">Email</div>
+                    </div>
+                    <input class="form-control" type="email" v-model="creds.email" placeholder="email">
+                  </div>
+                  <div class="input-group my-4">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text bgPurp bordR text-white">Password</div>
+                    </div>
+                    <input class="form-control" type="password" v-model="creds.password" placeholder="password">
+                  </div>
+                  <button class="btn bgBlack bordR text-white" type="submit">Login</button>
                 </form>
-                <p>Already have an account? Sign in here.</p>
               </div>
             </div>
             <div class="tab-pane fade text-dark" href="#register" id="register" role="tabpanel"
               aria-labelledby="profile-tab">
               <form @submit.prevent="register">
-                <input type="text" v-model="newUser.username" placeholder="name">
-                <input type="email" v-model="newUser.email" placeholder="email">
-                <input type="password" v-model="newUser.password" placeholder="password">
-                <button type="submit">Create Account</button>
-                <p v-if="loginForm">No account Click to Register</p>
+                <div class="register">
+                  <img src="../src/assets/keepr.png" />
+                  <div class="input-group my-4">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text bgBlue bordR text-white">Name</div>
+                    </div>
+                    <input class="form-control" type="email" v-model="newUser.name" placeholder="name">
+                  </div>
+                  <div class="input-group my-4">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text bgBlue bordR text-white">Email</div>
+                    </div>
+                    <input class="form-control" type="email" v-model="newUser.email" placeholder="email">
+                  </div>
+                  <div class="input-group my-4">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text bgPurp bordR text-white">Password</div>
+                    </div>
+                    <input class="form-control" type="password" v-model="newUser.password" placeholder="password">
+                  </div>
+                  <button class="btn bgBlack bordR text-white" type="submit">Register</button>
+                </div>
               </form>
             </div>
           </div>
@@ -67,7 +82,7 @@
 <script>
   import Login from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/src/views/Login.vue"
   export default {
-    name: 'Navbar',
+    name: 'Auth',
     data() {
       return {
         loginForm: true,
@@ -100,7 +115,7 @@
 
 <style scoped>
   .active {
-    background-color: rgba(104, 104, 104, 0.687);
+    background-color: black;
     color: white;
     transition: all 0.3s linear;
     border-radius: none !important;
@@ -111,6 +126,10 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+  }
+
+  .bgBlack {
+    background-color: black;
   }
 
   #login {
@@ -124,5 +143,10 @@
   .nav-tabs .nav-link {
     border-top-left-radius: 0;
     border-top-right-radius: 0;
+  }
+
+  .nav-tabs .nav-link.active {
+    color: white;
+    background-color: #fc0095;
   }
 </style>

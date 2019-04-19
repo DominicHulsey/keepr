@@ -30,7 +30,7 @@
             <div class="tab-pane fade" v-for="vault in vaults" :id="'vault' + vault.id" role="tabpanel"
               aria-labelledby="vault-details">
               <div class="row d-flex justify-content-center flex-row m-0">
-                <div class="col-2 m-2 w-100 card border p-0" style="border-radius:0 !important;"
+                <div class="col-2 Shadoww  m-2 w-100 card border p-0" style="border-radius:0 !important;"
                   v-for="keep in activeKeeps">
                   <img class="img-fluid" :src="keep.img" style="width:100%" />
                   <p class="m-0">
@@ -45,21 +45,21 @@
                   </div>
                 </div>
               </div>
+              <button class="btn bgPurp bordR" @click="deleteVault(vault)">Delete Vault</button>
             </div>
             <div class="tab-pane fade" id="private" role="tabpanel" aria-labelledby="profile-tab">
               <div class="row d-flex justify-content-center flex-row m-0">
-                <div class="col-2 m-2 w-100 card border p-0" style="border-radius:0 !important;"
-                  v-for="privateKeep in privateKeeps">
-                  <img class="img-fluid" :src="privateKeep.img" style="width:100%" />
+                <div class="col-2 Shadoww  m-2 w-100 card border p-0" style="border-radius:0 !important;"
+                  v-for="keep in privateKeeps">
+                  <img class="img-fluid" :src="keep.img" style="width:100%" />
                   <p class="m-0">
-                    {{privateKeep.name}}
-                    <!-- <button class=" btn btn-outline-danger" @click="remKeep(keep, vault)">Remove from Vault</button> -->
+                    {{keep.name}}
                   </p>
                   <p class="m-0">
-                    {{privateKeep.description}}
+                    {{keep.description}}
                   </p>
                   <div>
-                    <button class="btn w-50 trash" @click="deleteKeep(privateKeep)"><i
+                    <button class="btn w-50 trash" @click="deleteKeep(keep)"><i
                         class="fas fa-trash-alt fa-2x"></i></button>
                   </div>
                 </div>
@@ -67,7 +67,7 @@
             </div>
             <div class="tab-pane fade-in active" id="allkeeps" role="tabpanel" aria-labelledby="contact-tab">
               <div class="row d-flex justify-content-center flex-row m-0">
-                <div class="col-2 m-2 w-100 card border p-0" style="border-radius:0 !important;"
+                <div class="col-2 Shadoww  m-2 w-100 card border p-0" style="border-radius:0 !important;"
                   v-for="keep in userKeeps">
                   <img class="img-fluid" :src="keep.img" style="width:100%" />
                   <p class="m-0">
@@ -133,6 +133,9 @@
       deleteKeep(keep) {
         this.$store.dispatch("deleteKeep", keep.id)
       },
+      deleteVault(vault) {
+        this.$store.dispatch("deleteVault", vault.id)
+      }
     },
     components: {
       LoginModal
@@ -150,5 +153,9 @@
 
   .trash:hover {
     transform: scale(1.03);
+  }
+
+  .Shadoww {
+    box-shadow: -9px 8px 5px 1px rgba(153, 153, 153, 1);
   }
 </style>

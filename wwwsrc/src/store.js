@@ -122,7 +122,7 @@ export default new Vuex.Store({
         .then(res => {
           console.log(res.data)
           commit("addKeep", res.data)
-          location.reload(true)
+          // location.reload(true)
         })
     },
     makeVault({ commit, dispatch }, payload) {
@@ -221,27 +221,27 @@ export default new Vuex.Store({
           dispatch("getVaultKeeps", payload.vaultId)
         })
     },
-    numToDraw({ commit, dispatch }, payload) {
-      let imageArray = []
-      let finalArray = []
-      let start = 0;
-      let totalLength = payload
-      for (let i = 0; i < totalLength / 5; i++) {
-        if (start > totalLength - 5) {
-          imageArray[1] = start + (totalLength - start);
-        }
-        else {
-          imageArray[1] = start + 5;
-        }
-        imageArray[0] = start
-        for (let i = imageArray[0]; i < imageArray[1]; i++) {
-          commit("makeCollageImage", i)
-        }
-        let final = [imageArray[0], imageArray[1]]
-        commit("addIndexes", final)
-        start += 5;
-      }
-    }
+    // numToDraw({ commit, dispatch }, payload) {
+    //   let imageArray = []
+    //   let finalArray = []
+    //   let start = 0;
+    //   let totalLength = payload
+    //   for (let i = 0; i < totalLength / 5; i++) {
+    //     if (start > totalLength - 5) {
+    //       imageArray[1] = start + (totalLength - start);
+    //     }
+    //     else {
+    //       imageArray[1] = start + 5;
+    //     }
+    //     imageArray[0] = start
+    //     for (let i = imageArray[0]; i < imageArray[1]; i++) {
+    //       commit("makeCollageImage", i)
+    //     }
+    //     let final = [imageArray[0], imageArray[1]]
+    //     commit("addIndexes", final)
+    //     start += 5;
+    //   }
+    // }
     // #endregion
 
   },

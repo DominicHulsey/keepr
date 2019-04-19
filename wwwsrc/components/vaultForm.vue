@@ -1,7 +1,5 @@
 <template>
   <div class="makeVault">
-    <!-- Button trigger modal -->
-    <!-- Modal -->
     <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -16,19 +14,20 @@
             <form @submit.prevent="makeVault">
               <div class="input-group my-4">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Title</div>
+                  <div class="input-group-text bgBlue bordR text-white">Title</div>
                 </div>
                 <input type="text" class="form-control" v-model="newVault.name" placeholder="Name">
               </div>
               <div class="input-group my-4">
                 <div class="input-group-prepend">
-                  <div class="input-group-text">Description</div>
+                  <div class="input-group-text bgPurp bordR text-white">Description</div>
                 </div>
                 <input type="text" class="form-control" v-model="newVault.description" placeholder="Description">
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Create Vault</button>
+                <button type="button" class="btn bgBlack bordR text-white" data-dismiss="modal">Close</button>
+                <button type="submit" @click="hideModal()" class="btn boardR bgPurp text-white bordR">Create
+                  Vault</button>
               </div>
             </form>
           </div>
@@ -56,9 +55,23 @@
           description: this.newVault.description
         }
         this.$store.dispatch("makeVault", payload)
+      },
+      hideModal() {
+        $('#exampleModal2').modal('hide');
       }
     }, components: {}
-  } </script>
-<style scoped>
+  } 
+</script>
+<style>
+  .bgPurp {
+    background: #fc0095;
+  }
 
+  .bgBlue {
+    background-color: #007bff;
+  }
+
+  .bordR {
+    border-radius: 0 !important;
+  }
 </style>

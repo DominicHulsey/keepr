@@ -1,18 +1,15 @@
 <template>
   <div class="home container-fluid backgroundMain h-100">
-    <h1 class="text-dark">Welcome to Keepr™</h1>
     <login-modal></login-modal>
     <keep-form></keep-form>
     <vault-form></vault-form>
-    <div class="row">
-      <div :class="$mq | mq({xxs: 'col-12', xs: 'col-12', sm: 'col-12', md: 'col-9 p-0', lg: 'col-9 p-0'})">
+    <div class="row mt-4">
+      <div :class="$mq | mq({xxs: 'col-12', xs: 'col-12', sm: 'col-12', md: 'col-12', lg: 'col-9 p-0'})">
         <keep-template></keep-template>
-        <!-- <div class="row justify-content-center mt-1" v-if="keeps.length > 0">
-        </div> -->
       </div>
-      <div v-if="$mq == 'md' || $mq == 'lg'" class="d-flex p-2 bg-dark vaultTitle col-3 widthSet mt-2 flex-column">
-        <div v-if="$mq == 'md' || $mq == 'lg'" class="col-12 vaultTitle card bg-dark justify-content-center">
-          <h4 class="vaultTitle mt-3">
+      <div v-if="$mq == 'lg'" class="d-flex p-2 bgB rounded vaultTitle col-3 widthSet flex-column">
+        <div v-if="$mq == 'lg'" class="col-12 vaultTitle bg-black card bg-dark justify-content-center">
+          <h4 class="vaultTitle text-white mt-3">
             Vaults:
             <i v-if="!this.loggedIn" class="fas fa-plus-square makeVault add" @click="login()"></i>
             <i v-else class="fas fa-plus-square makeVault add" data-toggle="modal" data-target="#exampleModal2"></i>
@@ -37,7 +34,7 @@
     props: ["keep"],
     async mounted() {
       await this.$store.dispatch("getKeeps");
-      await this.$store.dispatch("numToDraw", this.$store.state.keeps.length);
+      // await this.$store.dispatch("numToDraw", this.$store.state.keeps.length);
       await this.$store.dispatch("authenticate");
       await this.$store.dispatch("getVaults");
     },
@@ -97,7 +94,7 @@
 
   .vaultTitle {
     position: sticky !important;
-    top: 10vh;
+    top: 13vh;
     max-height: 85vh
   }
 
@@ -105,9 +102,12 @@
     background-color: transparent;
   }
 
+  .bgBlack {
+    background-color: black;
+  }
+
   .bg-colored {
     background-color: #9854bb;
-    ;
   }
 
   .add {
