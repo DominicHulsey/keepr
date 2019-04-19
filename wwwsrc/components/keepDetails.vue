@@ -16,12 +16,12 @@
               </div>
               <hr>
               <div class="row justify-content-around mb-3" style="vertical-align: bottom;">
-                <div class="backV p-3 px-4 text-white" @click="keep.views+= 1"><i class="fas fa-eye"></i>
+                <div class="backV p-3 px-4 text-white cursor" @click="keep.views+= 1"><i class="fas fa-eye"></i>
                 </div>
-                <div class="backK p-3 px-4 text-white" @click="keep.views+= 1"><i class="fas fa-praying-hands"
+                <div class="backK p-3 px-4 text-white cursor" @click="keep.keeps+= 1"><i class="fas fa-praying-hands"
                     @click="keep.keeps+= 1"></i>
                 </div>
-                <div class="backS p-3 px-4 text-white" @click="keep.views+= 1"><i class="fas fa-share"></i>
+                <div class="backS p-3 px-4 text-white cursor" @click="keep.shares+= 1"><i class="fas fa-share"></i>
                 </div>
               </div>
               <div class=" modal-footer">
@@ -87,6 +87,10 @@
 <style scoped>
   .backV {
     background: #9854bb;
+  }
+
+  .cursor {
+    cursor: pointer;
   }
 
   .backK {
