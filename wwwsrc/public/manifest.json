@@ -4,6 +4,5 @@
   "theme_color": "black",
   "background_color": "black",
   "display": "fullscreen",
-  "scope": "/",
-  "start_url": "/keeprapp.herokuapp.com/"
+  "scope": "/"
 }

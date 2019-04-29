@@ -3,6 +3,8 @@ module.exports = {
 
   pwa: {
     name: 'Keepr',
-    themeColor: 'black'
+    themeColor: 'black',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
   }
 }
