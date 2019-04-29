@@ -8,6 +8,24 @@
         <i v-else class="col-2  px-0 fas fa-plus-square makeVault add fa-2x" data-toggle="modal"
           data-target="#exampleModal2"></i>
       </div>
+      <div v-else-if="$mq == 'sm'" class="row d-flex py-3 border mx-4" style="width:50%">
+        <h3 class="col-10 px-0">CREATE VAULT</h3>
+        <i v-if="!this.loggedIn" class="col-2 px-0  fas fa-plus-square makeVault add fa-2x" @click="login()"></i>
+        <i v-else class="col-2  px-0 fas fa-plus-square makeVault add fa-2x" data-toggle="modal"
+          data-target="#exampleModal2"></i>
+      </div>
+      <div v-else-if="$mq == 'xs'" class="row d-flex py-3 border mx-4" style="width:50%">
+        <h3 class="col-10 px-0">CREATE VAULT</h3>
+        <i v-if="!this.loggedIn" class="col-2 px-0  fas fa-plus-square makeVault add fa-2x" @click="login()"></i>
+        <i v-else class="col-2  px-0 fas fa-plus-square makeVault add fa-2x" data-toggle="modal"
+          data-target="#exampleModal2"></i>
+      </div>
+      <div v-else-if="$mq == 'xxs'" class="row d-flex py-3 border mx-4" style="width:50%">
+        <h3 class="col-10 px-0">CREATE VAULT</h3>
+        <i v-if="!this.loggedIn" class="col-2 px-0  fas fa-plus-square makeVault add fa-2x" @click="login()"></i>
+        <i v-else class="col-2  px-0 fas fa-plus-square makeVault add fa-2x" data-toggle="modal"
+          data-target="#exampleModal2"></i>
+      </div>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
