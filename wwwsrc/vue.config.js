@@ -5,6 +5,6 @@ module.exports = {
     name: 'Keepr',
     themeColor: 'black',
     appleMobileWebAppCapable: 'yes',
-    appleMobileWebAppStatusBarStyle: 'black',
+    appleMobileWebAppStatusBarStyle: 'black-translucent',
   }
 }
