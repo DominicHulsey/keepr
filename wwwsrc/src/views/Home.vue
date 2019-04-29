@@ -30,6 +30,39 @@
       </div>
     </div>
 
+    <div v-else-if="$mq == 'sm'" class="row mx-1 mt-4">
+      <div style="z-index:1" class="col-12 vaultTitleSM bg-black bg-dark justify-content-center">
+        <!-- <i v-if="!this.loggedIn" class="fas fa-plus-square makeVault add" @click="login()"></i> -->
+        <!-- <i v-else class="fas fa-plus-square makeVault add" data-toggle="modal" data-target="#exampleModal2"></i> -->
+        <vault-mobile></vault-mobile>
+      </div>
+      <div class="col-9 p-0">
+        <keep-template></keep-template>
+      </div>
+    </div>
+
+    <div v-else-if="$mq == 'xs'" class="row mx-1 mt-4">
+      <div style="z-index:1" class="col-12 vaultTitleSM bg-black bg-dark justify-content-center">
+        <!-- <i v-if="!this.loggedIn" class="fas fa-plus-square makeVault add" @click="login()"></i> -->
+        <!-- <i v-else class="fas fa-plus-square makeVault add" data-toggle="modal" data-target="#exampleModal2"></i> -->
+        <vault-mobile></vault-mobile>
+      </div>
+      <div class="col-9 p-0">
+        <keep-template></keep-template>
+      </div>
+    </div>
+
+    <div v-else-if="$mq == 'xxs'" class="row mx-1 mt-4">
+      <div style="z-index:1" class="col-12 vaultTitleSM bg-black bg-dark justify-content-center">
+        <!-- <i v-if="!this.loggedIn" class="fas fa-plus-square makeVault add" @click="login()"></i> -->
+        <!-- <i v-else class="fas fa-plus-square makeVault add" data-toggle="modal" data-target="#exampleModal2"></i> -->
+        <vault-mobile></vault-mobile>
+      </div>
+      <div class="col-9 p-0">
+        <keep-template></keep-template>
+      </div>
+    </div>
+
     <!-- add vaults here -->
   </div>
   </div>
