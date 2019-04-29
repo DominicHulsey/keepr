@@ -3,12 +3,12 @@
     <login-modal></login-modal>
     <keep-form></keep-form>
     <vault-form></vault-form>
-    <div class="row mt-4">
-      <div :class="$mq | mq({xxs: 'col-12', xs: 'col-12', sm: 'col-12', md: 'col-12', lg: 'col-9 p-0'})">
+    <div v-if="$mq == 'lg'" class="row mt-4">
+      <div class="col-9 p-0">
         <keep-template></keep-template>
       </div>
-      <div v-if="$mq == 'lg'" class="d-flex p-2 bgB rounded vaultTitle col-3 widthSet flex-column">
-        <div v-if="$mq == 'lg'" class="col-12 vaultTitle bg-black card bg-dark justify-content-center">
+      <div class="d-flex p-2 bgB float-right rounded vaultTitle float-right col-3 widthSet">
+        <div class="col-12 vaultTitle bg-black card bg-dark justify-content-center">
           <h4 class="vaultTitle text-white mt-3">
             Vaults:
             <i v-if="!this.loggedIn" class="fas fa-plus-square makeVault add" @click="login()"></i>
@@ -19,6 +19,19 @@
       </div>
       <!-- add vaults here -->
     </div>
+    <div v-else-if="$mq == 'md'" class="row mx-1 mt-4">
+      <div style="z-index:1" class="col-12 vaultTitleSM bg-black bg-dark justify-content-center">
+        <!-- <i v-if="!this.loggedIn" class="fas fa-plus-square makeVault add" @click="login()"></i> -->
+        <!-- <i v-else class="fas fa-plus-square makeVault add" data-toggle="modal" data-target="#exampleModal2"></i> -->
+        <vault-mobile></vault-mobile>
+      </div>
+      <div class="col-9 p-0">
+        <keep-template></keep-template>
+      </div>
+    </div>
+
+    <!-- add vaults here -->
+  </div>
   </div>
 </template>
 
@@ -27,6 +40,8 @@
   import KeepForm from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/keepForm.vue";
   import VaultForm from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultForm.vue";
   import VaultHome from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultHome.vue";
+  import VaultMobile from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultMobile.vue";
+
   import LoginModal from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/loginModal.vue"
   import { Drag, Drop } from "vue-drag-drop";
   export default {
@@ -65,7 +80,8 @@
       Drag,
       Drop,
       VaultForm,
-      LoginModal
+      LoginModal,
+      VaultMobile
     },
     methods: {
       addToVault(keep) {
@@ -96,6 +112,11 @@
     position: sticky !important;
     top: 15vh;
     max-height: 85vh
+  }
+
+  .vaultTitleSM {
+    position: sticky !important;
+    top: 13vh;
   }
 
   .backgroundMain {

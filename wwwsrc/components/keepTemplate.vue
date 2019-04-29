@@ -1,7 +1,7 @@
 <template>
   <!-- <div :class="$mq | mq({xxs: 'col-12 p-0',xs: 'col-12 p-0', sm: 'col-12 p-1', md: 'col-6 p-1', lg: 'col-6 p-1'})"> -->
   <div>
-    <waterfall :line-gap="250" align="center" :watch="this.keeps" style="max-height:100%;">
+    <waterfall :line-gap="250" align="center" :watch="this.keeps" style="max-height:100%;z-index:0;">
       <!-- each component is wrapped by a waterfall slot -->
       <waterfall-slot v-for="(keep, index) in keeps" move-class="item-move1" v-if="keep.width" :width="keep.width"
         :height="keep.height" class="anim p-1" :order="keep.id" :key="keep.id">

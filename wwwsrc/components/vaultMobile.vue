@@ -1,24 +1,28 @@
 <template>
-  <vue-custom-scrollbar :settings="settings" class="scroll-area text-white vaultHome sideVault">
+  <vue-custom-scrollbar :settings="settings" class="scroll-area text-white vaultHome sideVault mx-2">
     <div v-if="!this.loggedIn">
       <p class="mt-4" style="font-weight:bold">To view your vaults, you need to be logged in! Click <button
           type="button" class="btn bgPurp bordR" data-target="#MyModal" data-toggle="modal">
           Here</button> to login.</p>
     </div>
-    <vault-template v-for="vault in vaults" :vault="vault"></vault-template>
+    <div class="d-flex flex-row flex-nowrap row" style="height:20vh;">
+      <vault-temp-mobile v-for="vault in vaults" :vault="vault">
+      </vault-temp-mobile>
+    </div>
   </vue-custom-scrollbar>
 </template>
 
 <script>
-  import VaultTemplate from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultTemplate.vue"
+  import VaultTempMobile from "/Users/dominichulsey/source/codeworks/keepr/wwwsrc/components/vaultTempMobile.vue"
   import vueCustomScrollbar from 'vue-custom-scrollbar'
   export default {
     name: 'vaultHome',
     data() {
       return {
         settings: {
-          maxScrollbarLength: 300,
-          wheelPropagation: false
+          suppressScrollY: true,
+          wheelPropagation: false,
+          // maxScrollbarLength: 300,
         }
       }
     },
@@ -31,7 +35,7 @@
       }
     },
     components: {
-      VaultTemplate,
+      VaultTempMobile,
       vueCustomScrollbar,
     }
   }
@@ -41,8 +45,7 @@
 <style scoped>
   .sideVault {
     position: sticky !important;
-    top: 8vh;
-    height: 80vh;
+    height: 20vh;
   }
 
   .makeVault {
@@ -52,7 +55,7 @@
   .scroll-area {
     position: relative;
     width: auto;
-    height: 75vh;
+    height: 20vh;
     background-color: #343a40;
   }
 </style>
